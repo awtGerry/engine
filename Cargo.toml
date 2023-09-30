@@ -1,0 +1,22 @@
+[package]
+name = "engine"
+version = "0.1.0"
+edition = "2021"
+
+[[example]]
+name = "clock"
+path = "clock/src/main.rs"
+
+[[example]]
+name = "test"
+path = "examples/test.rs"
+
+[dependencies]
+cgmath = "0.18.0"
+chrono = "0.4.31"
+gl = "0.14.0"
+glfw = "0.52.0"
+# image = "0.24.7"
+image = "0.19.0"
+rand = "0.8.5"
+thiserror = "1.0.48"
