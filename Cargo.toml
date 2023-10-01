@@ -11,6 +11,10 @@ path = "clock/src/main.rs"
 name = "test"
 path = "examples/test.rs"
 
+[[example]]
+name = "translation"
+path = "examples/translation.rs"
+
 [dependencies]
 cgmath = "0.18.0"
 chrono = "0.4.31"

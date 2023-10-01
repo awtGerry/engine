@@ -44,3 +44,10 @@ pub fn fill_rectangle(x1: f32, y1: f32, x2: f32, y2: f32) {
         gl::DrawElements(gl::TRIANGLES, 6, gl::UNSIGNED_INT, ptr::null()); // Agregar fondo blanco
     }
 }
+
+pub fn draw_rectangle(x1: f32, y1: f32, x2: f32, y2: f32) {
+    draw_dda_line(x1, y1, x2, y1);
+    draw_dda_line(x2, y1, x2, y2);
+    draw_dda_line(x2, y2, x1, y2);
+    draw_dda_line(x1, y2, x1, y1);
+}
