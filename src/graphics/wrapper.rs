@@ -28,7 +28,7 @@ impl Vao {
 }
 
 pub struct Buffer {
-    id: gl::types::GLuint,
+    pub id: gl::types::GLuint,
     r#type: gl::types::GLenum,
     usage: gl::types::GLenum,
 }
