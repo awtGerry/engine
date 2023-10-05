@@ -4,7 +4,7 @@ use cgmath::Matrix;
 use gl::types::*;
 
 pub struct Shader {
-    program: u32,
+    pub program: u32,
     uniform_location: HashMap<String, GLint>,
 }
 

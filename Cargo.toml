@@ -3,6 +3,10 @@ name = "engine"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "engine"
+path = "src/lib.rs"
+
 [[example]]
 name = "clock"
 path = "clock/src/main.rs"
@@ -14,6 +18,10 @@ path = "examples/test.rs"
 [[example]]
 name = "translation"
 path = "examples/translation.rs"
+
+[[example]]
+name = "recorte"
+path = "examples/recorte.rs"
 
 [dependencies]
 cgmath = "0.18.0"
