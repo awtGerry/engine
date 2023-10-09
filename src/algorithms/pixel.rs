@@ -6,6 +6,6 @@ pub fn draw_pixel(x: i32, y: i32) {
         gl::ClearColor(1.0, 1.0, 1.0, 1.0);
         gl::Clear(gl::COLOR_BUFFER_BIT);
         gl::Disable(gl::SCISSOR_TEST);
-        gl::DrawArrays(gl::LINES, 0, 5);
+        // gl::DrawArrays(gl::POINTS, 0, 1);
     }
 }

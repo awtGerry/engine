@@ -4,7 +4,7 @@ use cgmath::Matrix;
 use gl::types::*;
 
 pub struct Shader {
-    pub program: u32,
+    pub id: u32,
     uniform_location: HashMap<String, GLint>,
 }
 
@@ -45,7 +45,7 @@ impl Shader {
             gl::DeleteShader(fragment);
 
             Shader {
-                program,
+                id: program,
                 uniform_location: HashMap::new(),
             }
         }
@@ -53,7 +53,7 @@ impl Shader {
 
     pub fn bind(&self) {
         unsafe {
-            gl::UseProgram(self.program);
+            gl::UseProgram(self.id);
         }
     }
 
@@ -66,7 +66,7 @@ impl Shader {
     pub fn set_uniform(&mut self, name: &str) {
         let location = unsafe {
             gl::GetUniformLocation(
-                self.program,
+                self.id,
                 std::ffi::CString::new(name).unwrap().as_ptr(),
             )
         };
