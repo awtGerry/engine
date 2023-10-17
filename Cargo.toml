@@ -12,6 +12,10 @@ name = "clock"
 path = "clock/src/main.rs"
 
 [[example]]
+name = "star-wars"
+path = "star-wars/src/main.rs"
+
+[[example]]
 name = "test"
 path = "examples/test.rs"
 
