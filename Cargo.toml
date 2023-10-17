@@ -23,6 +23,18 @@ path = "examples/translation.rs"
 name = "recorte"
 path = "examples/recorte.rs"
 
+[[example]]
+name = "sun"
+path = "examples/sun.rs"
+
+[[example]]
+name = "flower"
+path = "examples/flower.rs"
+
+[[example]]
+name = "humito"
+path = "examples/humito.rs"
+
 [dependencies]
 cgmath = "0.18.0"
 chrono = "0.4.31"

@@ -19,3 +19,19 @@ pub fn set_vao_vbo(vao: &Vao, vbo: &Buffer, vertices: &[f32], size: usize) {
     );
     position_attrib_location.enable();
 }
+
+pub fn set_vao_vbo_curve(vao: &Vao, vbo: &Buffer, vertices: &[[f32; 3]; 4], size: usize) {
+    vao.bind();
+    vbo.bind();
+    vbo.buffer_data(vertices);
+
+    let position_attrib_location = Vertex::new(
+        0,
+        size as i32,
+        gl::FLOAT,
+        gl::FALSE,
+        (size * std::mem::size_of::<f32>()) as GLsizei,
+        ptr::null(),
+    );
+    position_attrib_location.enable();
+}

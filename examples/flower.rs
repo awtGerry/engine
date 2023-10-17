@@ -14,11 +14,10 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            draw_infinity(0.0, 0.5, 80.0);
-            draw_curve(0.0, 0.5);
-            // draw_flower(0.0, 0.5);
-            draw_humito(0.0, 0.0);
-            // draw_sun(100);
+            // draw_infinity(0.0, 0.5, 80.0);
+            // draw_curve(0.0, 0.5);
+            draw_flower(0.0, 0.5);
+            // draw_humito(0.0, 0.0);
         }
         window.update();
     }
