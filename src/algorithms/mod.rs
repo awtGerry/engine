@@ -6,3 +6,4 @@ pub mod ellipse;
 pub mod figures;
 pub mod curves;
 pub mod relleno;
+pub mod transformations;
