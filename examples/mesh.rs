@@ -1,10 +1,22 @@
 use engine::graphics::window::Window;
-use engine::algorithms::curves::{draw_curve, draw_curve_8_points, draw_infinity};
+use engine::algorithms::figures::mesh;
 
 fn main()
 {
     let mut window = Window::new(800, 600, "Testing code");
     window.init();
+
+    let mut v1: Vec<f32> = Vec::new();
+    let mut v2: Vec<f32> = Vec::new();
+
+    for i in 0..51
+    {
+        v1.push((30 + i) as f32);
+    }
+    for i in 0..31
+    {
+        v2.push((50 + i) as f32);
+    }
 
     while !window.should_close()
     {
@@ -12,9 +24,7 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            draw_infinity(0.0, 0.5, 80.0);
-            // draw_curve(0.0, 0.5);
-            draw_curve_8_points(0.0, 0.5);
+            mesh(v1.clone(), v2.clone(), 4.0);
         }
         window.update();
     }

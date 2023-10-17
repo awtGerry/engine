@@ -47,6 +47,10 @@ path = "examples/humito.rs"
 name = "inundation"
 path = "examples/inundation.rs"
 
+[[example]]
+name = "mesh"
+path = "examples/mesh.rs"
+
 [dependencies]
 cgmath = "0.18.0"
 chrono = "0.4.31"

@@ -1,5 +1,5 @@
 use engine::graphics::window::Window;
-use engine::algorithms::figures::{fill_circle_inundation, fill_rectangle_inundation};
+use engine::algorithms::figures::draw_triangle;
 
 fn main()
 {
@@ -12,8 +12,7 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            fill_rectangle_inundation(200.0, 150.0, 400.0, 300.0);
-            fill_circle_inundation(700.0, 400.0, 50.0);
+            draw_triangle(-0.2, -0.4, 0.2, 0.4, 0.0);
         }
         window.update();
     }

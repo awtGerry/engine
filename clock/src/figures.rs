@@ -80,6 +80,7 @@ pub fn draw_polar_hand(x1: f32, y1: f32, length: f32, angle: f32) {
     draw_small_line(x1, y1, x2, y2);
 }
 
+#[allow(unused)]
 pub fn draw_triangle(x1: f32, y1: f32, x2: f32, y2: f32, x3: f32) {
     let vertices: [f32; 9] = [
         // Positions
@@ -167,6 +168,7 @@ pub fn draw_rectangle(x1: f32, y1: f32, x2: f32, y2: f32) {
     draw_line(x2, y1, x2, y2);
 }
 
+#[allow(unused)]
 pub fn draw_rectangle_fill(x1: f32, y1: f32, x2: f32, y2: f32) {
     let cordenates: [f32; 12] = [
         // Positions
@@ -193,6 +195,7 @@ pub fn draw_rectangle_fill(x1: f32, y1: f32, x2: f32, y2: f32) {
 }
 
 // This will draw the roof of the tower, is a bit more complex so it has its own function
+#[allow(unused)]
 pub fn draw_roof(x1: f32, y1: f32, x2: f32, y2: f32, x3: f32, x4: f32) {
     let cordenates: [f32; 12] = [
         // Positions
@@ -218,3 +221,34 @@ pub fn draw_roof(x1: f32, y1: f32, x2: f32, y2: f32, x3: f32, x4: f32) {
     }
 }
 
+pub fn mesh(v1: Vec<f32>, v2: Vec<f32>, space: f32)
+{
+    let l1 = v1.len();
+    let l2 = v2.len();
+
+    for i in 0..l1
+    {
+        for j in 0..l2
+        {
+            let x1 = v1[i] * space;
+            let y1 = v2[j] * space;
+
+            let x2: f32 = x1 + space;
+            let y2: f32 = y1 + space;
+
+            let mut x: f32 = x1;
+            let mut y: f32 = y1;
+
+            while x < x2
+            {
+                draw_pixel(x as i32, y1 as i32);
+                x+=1.0;
+            }
+            while y < y2
+            {
+                draw_pixel(x1 as i32, y as i32);
+                y+=1.0;
+            }
+        }
+    }
+}
