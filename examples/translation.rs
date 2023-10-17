@@ -10,7 +10,7 @@ use engine::graphics::shader::Shader;
 // use engine::algorithms::lines::draw_dda_line;
 
 fn main() {
-    let mut window = Window::new(800, 600, "Testing code");
+    let mut window = Window::new(800, 600, "Traslation");
     window.init();
 
     while !window.should_close() {
