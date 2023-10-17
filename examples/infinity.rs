@@ -1,5 +1,5 @@
 use engine::graphics::window::Window;
-use engine::algorithms::curves::draw_flower;
+use engine::algorithms::curves::{draw_curve, draw_infinity};
 
 fn main()
 {
@@ -12,7 +12,8 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            draw_flower(0.0, 0.5);
+            draw_infinity(0.0, 0.5, 80.0);
+            draw_curve(0.0, 0.5);
         }
         window.update();
     }

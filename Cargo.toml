@@ -28,6 +28,10 @@ name = "recorte"
 path = "examples/recorte.rs"
 
 [[example]]
+name = "infinity"
+path = "examples/infinity.rs"
+
+[[example]]
 name = "sun"
 path = "examples/sun.rs"
 

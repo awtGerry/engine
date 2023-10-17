@@ -1,7 +1,5 @@
 use engine::graphics::window::Window;
-// use engine::graphics::wrapper::*;
-// use engine::graphics::shader::Shader;
-use engine::algorithms::curves::{draw_infinity, draw_curve, draw_flower, draw_humito, draw_sun};
+use engine::algorithms::lines::bresenham_line;
 
 fn main()
 {
@@ -14,11 +12,7 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            draw_infinity(0.0, 0.5, 80.0);
-            draw_curve(0.0, 0.5);
-            // draw_flower(0.0, 0.5);
-            draw_humito(0.0, 0.0);
-            // draw_sun(100);
+            bresenham_line(-0.5, -0.5, 0.5, 0.5);
         }
         window.update();
     }
