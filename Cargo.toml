@@ -43,6 +43,10 @@ path = "examples/flower.rs"
 name = "humito"
 path = "examples/humito.rs"
 
+[[example]]
+name = "inundation"
+path = "examples/inundation.rs"
+
 [dependencies]
 cgmath = "0.18.0"
 chrono = "0.4.31"

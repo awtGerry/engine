@@ -9,10 +9,10 @@ or for testing are inside the examples folder, either way i run
 each with `cargo run --example [name]`.
 
 ## Draw with pixel
+All methods will draw it using pixel by pixel.
 
-## Brazier curves
+## Curves
 
 ## References
 - [learnopengl](https://learnopengl.com/).
 - [OGLDEV](https://github.com/emeiri/ogldev/tree/master/tutorial06) repo.
-

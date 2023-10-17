@@ -15,5 +15,4 @@ pub fn indundacion(x: u32, y: u32)
     indundacion(x - 1, y);
     indundacion(x, y + 1);
     indundacion(x, y - 1);
-
 }

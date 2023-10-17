@@ -1,30 +1,9 @@
 use crate::graphics::wrapper::{Vao, Buffer};
 
 use crate::algorithms::pixel::draw_pixel;
-use crate::algorithms::raw_attributes::{set_vao_vbo, set_vao_vbo_curve};
+use crate::algorithms::raw_attributes::set_vao_vbo;
 
 use super::lines::draw_dda_line;
-
-pub fn bezier_curve(x1: f32, y1: f32, x2: f32, y2: f32) {
-    let vao = Vao::new();
-    let vbo = Buffer::new(gl::ARRAY_BUFFER, gl::STATIC_DRAW);
-
-    let p: [[f32; 3]; 4] = [
-        [x1, y1, 0.0],
-        [x2-x1, y2, 0.0],
-        [x2, y1, 0.0],
-        [x2, y1, 0.0],
-    ];
-
-    set_vao_vbo_curve(&vao, &vbo, &p, 3);
-
-    unsafe {
-        for i in 0..4 {
-            draw_pixel(p[i][0] as i32, p[i][1] as i32);
-        }
-        gl::DrawArrays(gl::LINE_STRIP, 0, 5);
-    }
-}
 
 pub fn draw_infinity(x: f32, y: f32, r: f32)
 {
