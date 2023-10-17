@@ -51,6 +51,10 @@ path = "examples/inundation.rs"
 name = "mesh"
 path = "examples/mesh.rs"
 
+[[example]]
+name = "diamond"
+path = "examples/diamond.rs"
+
 [dependencies]
 cgmath = "0.18.0"
 chrono = "0.4.31"
