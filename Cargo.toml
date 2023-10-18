@@ -7,9 +7,9 @@ edition = "2021"
 name = "engine"
 path = "src/lib.rs"
 
-[[example]]
-name = "clock"
-path = "clock/src/main.rs"
+# [[example]]
+# name = "clock"
+# path = "clock/src/main.rs"
 
 [[example]]
 name = "star-wars"

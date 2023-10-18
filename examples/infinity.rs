@@ -1,4 +1,5 @@
 use engine::graphics::window::Window;
+#[allow(unused_imports)]
 use engine::algorithms::curves::{draw_curve, draw_curve_8_points, draw_infinity};
 
 fn main()

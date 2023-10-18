@@ -188,3 +188,8 @@ pub fn draw_diamond(x1: f32, y1: f32, x2: f32, y2: f32, x3: f32, y3: f32)
         gl::DrawElements(gl::TRIANGLES, 3, gl::UNSIGNED_INT, ptr::null());
     }
 }
+
+// pub fn draw_star(x1: f32, y1: f32, x2: f32, y2: f32)
+// {
+//     draw_dda_line(
+// }
