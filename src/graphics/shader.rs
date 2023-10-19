@@ -63,6 +63,13 @@ impl Shader {
         }
     }
 
+    pub fn set_int(&self, name: &str, value: i32) {
+        unsafe {
+            gl::Uniform1i(gl::GetUniformLocation(self.id, name.as_ptr() as *const i8), value);
+            // gl::Uniform1i(self.uniform_location[name], value);
+        }
+    }
+
     pub fn set_uniform(&mut self, name: &str) {
         let location = unsafe {
             gl::GetUniformLocation(
@@ -90,3 +97,4 @@ impl Shader {
     }
 
 }
+

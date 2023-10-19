@@ -1,5 +1,5 @@
 use engine::graphics::window::Window;
-use engine::algorithms::curves::draw_flower;
+// use engine::algorithms::curves::draw_flower;
 
 fn main()
 {
@@ -12,7 +12,8 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            draw_flower(0.0, 0.5);
+            engine::algorithms::curves::draw_flower(0.0, 0.5);
+            // draw_flower(0.0, 0.5);
         }
         window.update();
     }
