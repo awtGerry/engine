@@ -1,5 +1,5 @@
 use engine::graphics::window::Window;
-use engine::algorithms::figures::fill_circle_inundation;
+use engine::algorithms::figures::{fill_rectangle_inundation, fill_circle_inundation};
 
 fn main()
 {

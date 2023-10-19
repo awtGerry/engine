@@ -7,3 +7,4 @@ pub mod figures;
 pub mod curves;
 pub mod relleno;
 pub mod transformations;
+pub mod fill;
