@@ -3,7 +3,7 @@ use engine::algorithms::figures::mesh;
 
 fn main()
 {
-    let mut window = Window::new(800, 600, "Testing code");
+    let mut window = Window::new(800.0, 600.0, "Testing code");
     window.init();
 
     let mut v1: Vec<f32> = Vec::new();

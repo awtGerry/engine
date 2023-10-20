@@ -1,27 +1,37 @@
-use engine::graphics::window::{WIDTH, HEIGHT, Window};
+use engine::{graphics::window::{WIDTH, HEIGHT, Window}, algorithms::transformations::translate};
 
 mod characters;
-mod movements;
+mod walls;
 
 fn main()
 {
-    let mut window = Window::new(WIDTH, HEIGHT, "Pacman animation");
+    let mut window = Window::new(WIDTH, HEIGHT, "Pacman");
     window.init();
 
-    let mut x = (WIDTH/2) as f32;
-    let mut y = (HEIGHT/2) as f32;
+    let x: f32 = 120.0;
+    let y: f32 = 180.0;
 
-    let mut x2 = 1280.0;
-    let mut y2 = 720.0;
+    // let mut timer: f32 = 0.0;
 
     while !window.should_close()
     {
         unsafe {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            characters::draw_pacman(x, y);
-            characters::draw_red_ghost(x2, y2);
-            movements::move_character(&mut x, &mut y, 1.0, 0.0);
+            // if timer < 100.0 {
+            //     if x < 150.0 {
+            //         (x,y) = translate(x, y, 1.0, 0.0);
+            //         characters::draw_pacman(x, y, 0);
+            //     }
+            //     if x >= 150.0 {
+            //         (x,y) = translate(x, y, 0.0, 1.0);
+            //         characters::draw_pacman(x, y, 1);
+            //     }
+            // }
+            characters::draw_pacman(x, y, 0);
+            walls::draw_walls();
+            // timer += 0.1;
+            // println!("{}", timer);
         }
         window.update();
     }

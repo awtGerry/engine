@@ -27,14 +27,10 @@ pub fn draw_curve(x: f32, y: f32)
 {
     let mut t: f32 = 0.0;
 
-    let vao = Vao::new();
-    let vbo = Buffer::new(gl::ARRAY_BUFFER, gl::STATIC_DRAW);
-    set_vao_vbo(&vao, &vbo, &[x, y], 4);
-
     while t < std::f32::consts::PI
     {
-        let _x = (t * 100.0) + 100.0;
-        let _y = ((t.sin())/2.0 * 400.0) + 300.0;
+        let _x = (t * 40.0) + x;
+        let _y = ((t.sin())/2.0 * 400.0) + y;
 
         draw_pixel(_x as i32, _y as i32);
         t+=0.01;

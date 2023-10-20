@@ -5,8 +5,8 @@ use engine::graphics::shader::Shader;
 use std::ffi::CStr;
 use cgmath::{Matrix, Matrix4, SquareMatrix, vec3, Rad};
 
-const WIDTH: u32 = 1200;
-const HEIGHT: u32 = 720;
+const WIDTH: f32 = 1200.0;
+const HEIGHT: f32 = 720.0;
 
 unsafe fn rotation(x1: f32, y1: f32, x2: f32, y2: f32, shader: &Shader, increment: f32)
 {

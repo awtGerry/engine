@@ -3,7 +3,7 @@ use engine::algorithms::figures::draw_diamond;
 
 fn main()
 {
-    let mut window = Window::new(800, 600, "Draw a diamond");
+    let mut window = Window::new(800.0, 600.0, "Draw a diamond");
     window.init();
 
     while !window.should_close()

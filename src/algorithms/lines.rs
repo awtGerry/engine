@@ -1,7 +1,10 @@
+use crate::graphics::color::Color;
 use crate::graphics::wrapper::{Vao, Buffer};
 
 use crate::algorithms::pixel::draw_pixel;
 use crate::algorithms::raw_attributes::set_vao_vbo;
+
+use super::pixel::draw_pixel_color;
 
 pub fn draw_dda_line(x1: f32, y1: f32, x2: f32, y2: f32) {
     let vao = Vao::new();
@@ -30,13 +33,8 @@ pub fn draw_dda_line(x1: f32, y1: f32, x2: f32, y2: f32) {
     }
 }
 
-pub fn bresenham_line(x1: f32, y1: f32, x2: f32, y2: f32) {
-    let cordenates: [f32; 4] = [x1, y1, x2, y2];
-
-    let vao = Vao::new();
-    let vbo = Buffer::new(gl::ARRAY_BUFFER, gl::STATIC_DRAW);
-    set_vao_vbo(&vao, &vbo, &cordenates, 3);
-
+pub fn bresenham_line(x1: f32, y1: f32, x2: f32, y2: f32, color: &Color)
+{
     let mut dx = x2 - x1;
     let mut dy = y2 - y1;
 
@@ -58,15 +56,15 @@ pub fn bresenham_line(x1: f32, y1: f32, x2: f32, y2: f32) {
         dy = -dy;
     }
 
-    draw_pixel(x as i32, y as i32);
+    draw_pixel_color(x as i32, y as i32, &color);
 
     while x < x2 {
         if p >= 0.0 {
-            draw_pixel(x as i32, y as i32);
+            draw_pixel_color(x as i32, y as i32, &color);
             y += 1.0;
             p += 2.0 * dy - 2.0 * dx;
         } else {
-            draw_pixel(x as i32, y as i32);
+            draw_pixel_color(x as i32, y as i32, &color);
             p += 2.0 * dy;
         }
         x += 1.0;

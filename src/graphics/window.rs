@@ -1,8 +1,8 @@
 use glfw::{Action, Context, Key, WindowEvent};
 use std::sync::mpsc::Receiver;
 
-pub const WIDTH: u32 = 1280;
-pub const HEIGHT: u32 = 720;
+pub const WIDTH: f32 = 800.0;
+pub const HEIGHT: f32 = 600.0;
 
 pub struct Window {
     glfw: glfw::Glfw,
@@ -11,10 +11,10 @@ pub struct Window {
 }
 
 impl Window {
-    pub fn new(width: u32, height: u32, title: &str) -> Self {
+    pub fn new(width: f32, height: f32, title: &str) -> Self {
         let mut glfw = glfw::init(glfw::FAIL_ON_ERRORS).unwrap();
         let (mut window, events) = glfw
-            .create_window(width, height, title, glfw::WindowMode::Windowed)
+            .create_window(width as u32, height as u32, title, glfw::WindowMode::Windowed)
             .expect("Fallo al crear la ventana con OpenGL");
 
         window.set_framebuffer_size_polling(true);
