@@ -12,8 +12,8 @@ path = "src/lib.rs"
 # path = "clock/src/main.rs"
 
 [[example]]
-name = "star-wars"
-path = "star-wars/src/main.rs"
+name = "pacman"
+path = "pacman-animation/src/pacman.rs"
 
 [[example]]
 name = "test"

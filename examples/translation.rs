@@ -14,7 +14,7 @@ unsafe fn rotation(x1: f32, y1: f32, x2: f32, y2: f32, shader: &Shader, incremen
     gl::Clear(gl::COLOR_BUFFER_BIT);
 
     let mut translation_matrix: Matrix4<f32> = Matrix4::identity();
-    translation_matrix = translation_matrix * Matrix4::<f32>::from_translation(vec3(0.5, -0.5, 0.0));
+    translation_matrix = translation_matrix * Matrix4::<f32>::from_translation(vec3(0.0, 0.0, 0.0));
     translation_matrix = translation_matrix * Matrix4::<f32>::from_angle_z(Rad(increment));
 
     shader.bind();
@@ -44,7 +44,7 @@ fn main()
         {
             rotation(x1, y1, x2, y2, &shader, increment);
             fill_rectangle(x1, y1, x2, y2);
-            increment += 0.01;
+            increment += 0.001;
         }
         window.update();
     }

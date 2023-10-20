@@ -1,13 +1,13 @@
 use glfw::{Action, Context, Key, WindowEvent};
 use std::sync::mpsc::Receiver;
 
-pub const WIDTH: u32 = 800;
-pub const HEIGHT: u32 = 600;
+pub const WIDTH: u32 = 1280;
+pub const HEIGHT: u32 = 720;
 
 pub struct Window {
     glfw: glfw::Glfw,
     window: glfw::Window,
-    events: Receiver<(f64, WindowEvent)>,
+    pub events: Receiver<(f64, WindowEvent)>,
 }
 
 impl Window {

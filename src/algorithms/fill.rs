@@ -1,6 +1,7 @@
 use crate::graphics::wrapper::{Vao, Buffer, Vertex};
-use crate::algorithms::pixel::draw_pixel;
 use std::ptr;
+
+use super::pixel::draw_pixel_color;
 
 pub fn fill_rectangle(x1: f32, y1: f32, x2: f32, y2: f32)
 {
@@ -34,7 +35,7 @@ pub fn fill_rectangle(x1: f32, y1: f32, x2: f32, y2: f32)
     }
 }
 
-pub fn fill_rectangle_inundation(x1: f32, y1: f32, x2: f32, y2: f32)
+pub fn fill_rectangle_inundation(x1: f32, y1: f32, x2: f32, y2: f32, r: f32, g: f32, b: f32)
 {
     let mut x: f32 = x1;
     let mut y: f32 = y1;
@@ -43,7 +44,7 @@ pub fn fill_rectangle_inundation(x1: f32, y1: f32, x2: f32, y2: f32)
     {
         while y <= y2
         {
-            draw_pixel(x as i32, y as i32);
+            draw_pixel_color(x as i32, y as i32, r, g, b);
             y += 1.0;
         }
         y = y1;
@@ -51,26 +52,26 @@ pub fn fill_rectangle_inundation(x1: f32, y1: f32, x2: f32, y2: f32)
     }
 }
 
-pub fn fill_circle_inundation(xc: f32, yc: f32, r: f32)
+pub fn fill_circle_inundation(xc: f32, yc: f32, radious: f32, r: f32, g: f32, b: f32)
 {
     let mut x: f32 = 0.0;
-    let mut y: f32 = r;
-    let mut d: f32 = 1.25 - r;
+    let mut y: f32 = radious;
+    let mut d: f32 = 1.25 - radious;
 
     while x <= y
     {
         let mut i: f32 = xc - x;
         while i <= xc + x
         {
-            draw_pixel(i as i32, (yc + y) as i32);
-            draw_pixel(i as i32, (yc - y) as i32);
+            draw_pixel_color(i as i32, (yc + y) as i32, r, g, b);
+            draw_pixel_color(i as i32, (yc - y) as i32, r, g, b);
             i += 1.0;
         }
         i = xc - y;
         while i <= xc + y
         {
-            draw_pixel(i as i32, (yc + x) as i32);
-            draw_pixel(i as i32, (yc - x) as i32);
+            draw_pixel_color(i as i32, (yc + x) as i32, r, g, b);
+            draw_pixel_color(i as i32, (yc - x) as i32, r, g, b);
             i += 1.0;
         }
 
