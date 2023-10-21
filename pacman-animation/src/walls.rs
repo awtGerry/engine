@@ -8,11 +8,14 @@ pub fn draw_walls()
     outside();
     ghost_rectangle();
     inner_obstacles_bottom();
+    inner_obstacles_top();
 }
 
 fn ghost_rectangle()
 {
     let wall_color: Color = Color::new(0.0, 0.25, 0.8);
+
+    /* GHOST's RECTANGLE */
     fill_rectangle_inundation(220.0, 260.0, 380.0, 270.0, &wall_color); // Left to right wall (bottom)
     fill_rectangle_inundation(220.0, 340.0, 270.0, 350.0, &wall_color); // Left to right wall (top)
     fill_rectangle_inundation(330.0, 340.0, 380.0, 350.0, &wall_color); // Left to right wall (top)
@@ -61,6 +64,34 @@ fn inner_obstacles_bottom()
     fill_rectangle_inundation(360.0, 150.0, 440.0, 160.0, &wall_color); // right small wall
 }
 
+fn inner_obstacles_top()
+{
+    let wall_color: Color = Color::new(0.0, 0.25, 0.8);
+
+    fill_rectangle_inundation(300.0, 500.0, 310.0, 600.0, &wall_color); // Top T with outer wall
+
+    fill_rectangle_inundation(230.0, 450.0, 370.0, 460.0, &wall_color); // Top T
+    fill_rectangle_inundation(300.0, 400.0, 310.0, 460.0, &wall_color); // Top T
+
+    /* LEFT */
+    fill_rectangle_inundation(160.0, 340.0, 170.0, 460.0, &wall_color); // Mid inverted T
+    fill_rectangle_inundation(160.0, 400.0, 240.0, 410.0, &wall_color); // Mid inverted T
+
+    fill_rectangle_inundation(60.0, 450.0, 110.0, 460.0, &wall_color); // Little left wall
+
+    fill_rectangle_inundation(60.0, 500.0, 110.0, 540.0, &wall_color); // Rectangle 1
+    fill_rectangle_inundation(160.0, 500.0, 240.0, 540.0, &wall_color); // Rectangle 2
+
+    /* RIGHT */
+    fill_rectangle_inundation(430.0, 340.0, 440.0, 460.0, &wall_color); // Mid inverted T
+    fill_rectangle_inundation(360.0, 400.0, 440.0, 410.0, &wall_color); // Mid inverted T
+
+    fill_rectangle_inundation(WIDTH-100.0, 450.0, WIDTH-60.0, 460.0, &wall_color); // Little right wall
+
+    fill_rectangle_inundation(WIDTH-100.0, 500.0, WIDTH-60.0, 540.0, &wall_color); // Rectangle 1
+    fill_rectangle_inundation(WIDTH-240.0, 500.0, WIDTH-160.0, 540.0, &wall_color); // Rectangle 2
+}
+
 fn outside()
 {
     let wall_color: Color = Color::new(0.0, 0.25, 0.8);
@@ -76,8 +107,8 @@ fn outside()
     fill_rectangle_inundation(100.0, 200.0, 110.0, 260.0, &wall_color); // Left going up wall (bottom)
     fill_rectangle_inundation(0.0, 260.0, 110.0, 270.0, &wall_color); // Left back to 0 wall (bottom)
 
-    fill_rectangle_inundation(0.0, 390.0, 100.0, 400.0, &wall_color); // Left to mid wall (top)
-    fill_rectangle_inundation(100.0, 340.0, 110.0, 400.0, &wall_color); // Left going down wall (top)
+    fill_rectangle_inundation(0.0, 400.0, 100.0, 410.0, &wall_color); // Left to mid wall (top)
+    fill_rectangle_inundation(100.0, 340.0, 110.0, 410.0, &wall_color); // Left going down wall (top)
     fill_rectangle_inundation(0.0, 340.0, 110.0, 350.0, &wall_color); // Left back to 0 wall (top)
 
     fill_rectangle_inundation(WIDTH-100.0, 200.0, WIDTH, 210.0, &wall_color); // Right to mid wall (bottom)
