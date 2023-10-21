@@ -33,6 +33,25 @@ pub fn draw_dda_line(x1: f32, y1: f32, x2: f32, y2: f32) {
     }
 }
 
+pub fn draw_dda_line_color(x1: f32, y1: f32, x2: f32, y2: f32, color: &Color) {
+    let dx = x2 - x1;
+    let dy = y2 - y1;
+
+    let steps = if dx.abs() > dy.abs() { dx.abs() } else { dy.abs() };
+
+    let x_inc = dx as f32 / steps as f32;
+    let y_inc = dy as f32 / steps as f32;
+
+    let mut x = x1 as f32;
+    let mut y = y1 as f32;
+
+    for _ in 0..steps as i32 {
+        draw_pixel_color(x as i32, y as i32, &color);
+        x += x_inc;
+        y += y_inc;
+    }
+}
+
 pub fn bresenham_line(x1: f32, y1: f32, x2: f32, y2: f32, color: &Color)
 {
     let mut dx = x2 - x1;

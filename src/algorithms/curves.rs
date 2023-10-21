@@ -1,9 +1,11 @@
+use crate::graphics::color::Color;
 use crate::graphics::wrapper::{Vao, Buffer};
 
 use crate::algorithms::pixel::draw_pixel;
 use crate::algorithms::raw_attributes::set_vao_vbo;
 
-use super::lines::draw_dda_line;
+use super::lines::{draw_dda_line, bresenham_line, draw_dda_line_color};
+use super::pixel::draw_pixel_color;
 
 pub fn draw_infinity(x: f32, y: f32, r: f32)
 {
@@ -92,7 +94,8 @@ pub fn draw_humito(x: f32, y: f32)
     }
 }
 
-pub fn draw_sun(points: u32) {
+pub fn draw_sun(xc: f32, yc: f32, points: u32, size: f32, color: &Color)
+{
     let step: f32 = 14.0 * std::f32::consts::PI / points as f32;
     let mut x = 0.0;
     let mut y = 0.0;
@@ -106,14 +109,14 @@ pub fn draw_sun(points: u32) {
         let _x = 17.0 * t.cos() + 7.0 * ((17.0 / 7.0) * t).cos();
         let _y = 17.0 * t.sin() - 7.0 * ((17.0 / 7.0) * t).sin();
 
-        let pixel_x = (_x * 10.0) + 400.0;
-        let pixel_y = (_y * 10.0) + 300.0;
+        let pixel_x = (_x * size) + xc;
+        let pixel_y = (_y * size) + yc;
 
-        draw_pixel(pixel_x as i32, pixel_y as i32);
+        draw_pixel_color(pixel_x as i32, pixel_y as i32, color);
 
         if !is_first
         {
-            draw_dda_line(x, y, pixel_x, pixel_y);
+            draw_dda_line_color(x, y, pixel_x, pixel_y, color);
         }
         else
         {

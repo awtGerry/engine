@@ -32,6 +32,7 @@ impl Ghost
 
     }
 
+    #[allow(unused)]
     pub fn update(&mut self, x: f32, y: f32)
     {
         self.x = x;
