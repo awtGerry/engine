@@ -1,4 +1,4 @@
-use engine::{graphics::window::{WIDTH, HEIGHT, Window}, algorithms::transformations::translate};
+use engine::graphics::window::{WIDTH, HEIGHT, Window};
 
 mod characters;
 mod walls;

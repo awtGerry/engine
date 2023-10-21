@@ -1,7 +1,7 @@
 use glfw::{Action, Context, Key, WindowEvent};
 use std::sync::mpsc::Receiver;
 
-pub const WIDTH: f32 = 800.0;
+pub const WIDTH: f32 = 600.0;
 pub const HEIGHT: f32 = 600.0;
 
 pub struct Window {
