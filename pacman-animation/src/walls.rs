@@ -118,5 +118,4 @@ fn outside()
     fill_rectangle_inundation(WIDTH-100.0, 400.0, WIDTH, 410.0, &wall_color); // Right to mid wall (top)
     fill_rectangle_inundation(WIDTH-110.0, 340.0, WIDTH-100.0, 410.0, &wall_color); // Right going down wall (top)
     fill_rectangle_inundation(WIDTH-110.0, 340.0, WIDTH, 350.0, &wall_color); // Right back to 0 wall (top)
-
 }

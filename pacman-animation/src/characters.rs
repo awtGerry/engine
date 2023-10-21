@@ -32,13 +32,60 @@ impl Ghost
 
     }
 
-    #[allow(unused)]
     pub fn update(&mut self, x: f32, y: f32)
     {
         self.x = x;
         self.y = y;
     }
+
+    #[allow(unused)]
+    /* HANDLE COLOR CHANGE */
+    pub fn update_color(&mut self, color: Color)
+    {
+        self.color = color;
+    }
 }
+
+/* pub struct Pacman
+{
+    x: f32,
+    y: f32,
+    direction: Direction,
+    radius: f32,
+}
+
+pub enum Direction
+{
+    Right,
+    Up,
+    Left,
+    Down,
+}
+
+impl Pacman
+{
+    pub fn new(x: f32, y: f32, direction: Direction, radius: f32) -> Pacman
+    {
+        Pacman
+        {
+            x,
+            y,
+            direction,
+            radius,
+        }
+    }
+
+    pub fn move_pacman(&mut self)
+    {
+        match self.direction
+        {
+            Direction::Up => self.y += 1.0,
+            Direction::Down => self.y -= 1.0,
+            Direction::Left => self.x -= 1.0,
+            Direction::Right => self.x += 1.0,
+        }
+    }
+} */
 
 const RADIUS: f32 = 10.0;
 
@@ -52,7 +99,7 @@ pub fn draw_pacman(x: f32, y: f32, direction: u8, radius: f32)
         // FACE UP
         1 => fill_triangle_inundation(x-radius, y+RADIUS, x+radius, y+RADIUS, x, y, &Color::new(0.0, 0.0, 0.0)),
         // FACE LEFT
-        2 => fill_triangle_inundation((x-RADIUS)-0.1, y+RADIUS, (x-RADIUS)-0.1, y-RADIUS, x, y, &Color::new(0.0, 0.0, 0.0)),
+        2 => fill_triangle_inundation((x-RADIUS)-0.1, y+radius, (x-RADIUS)-0.1, y-radius, x, y, &Color::new(0.0, 0.0, 0.0)),
         // FACE DOWN
         3 => fill_triangle_inundation(x-radius, (y-RADIUS)-0.1, x+radius, (y-RADIUS)-0.1, x, y, &Color::new(0.0, 0.0, 0.0)),
         _ => (),

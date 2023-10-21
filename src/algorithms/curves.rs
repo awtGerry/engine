@@ -4,7 +4,8 @@ use crate::graphics::wrapper::{Vao, Buffer};
 use crate::algorithms::pixel::draw_pixel;
 use crate::algorithms::raw_attributes::set_vao_vbo;
 
-use super::lines::{draw_dda_line, bresenham_line, draw_dda_line_color};
+// use super::lines::{draw_dda_line, bresenham_line, draw_dda_line_color};
+use super::lines::draw_dda_line_color;
 use super::pixel::draw_pixel_color;
 
 pub fn draw_infinity(x: f32, y: f32, r: f32)
@@ -57,21 +58,17 @@ pub fn draw_curve_8_points(x: f32, y: f32)
     }
 }
 
-pub fn draw_flower(x: f32, y: f32)
+pub fn draw_flower(x: f32, y: f32, size: f32, color: &Color)
 {
     let mut t: f32 = 0.0;
-
-    let vao = Vao::new();
-    let vbo = Buffer::new(gl::ARRAY_BUFFER, gl::STATIC_DRAW);
-    set_vao_vbo(&vao, &vbo, &[x, y], 4);
 
     while t < 360.0
     {
         let r = std::f32::consts::PI * t / 180.0;
-        let _x = (r.cos() + (0.5 * (r*7.0).cos()) + (0.33 * (r*17.0).sin())) * 100.0;
-        let _y = (r.sin() + (0.5 * (r*7.0).sin()) + (0.33 * (r*17.0).cos())) * 100.0;
+        let _x = (r.cos() + (0.5 * (r*7.0).cos()) + (0.33 * (r*17.0).sin())) * size;
+        let _y = (r.sin() + (0.5 * (r*7.0).sin()) + (0.33 * (r*17.0).cos())) * size;
 
-        draw_pixel(_x as i32 + 300, _y as i32 + 300);
+        draw_pixel_color((_x + x) as i32, (_y + y) as i32, color);
         t+=0.01;
     }
 }
