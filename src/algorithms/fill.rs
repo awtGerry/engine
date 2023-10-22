@@ -2,7 +2,7 @@ use crate::graphics::wrapper::{Vao, Buffer, Vertex};
 use crate::graphics::color::Color;
 use std::ptr;
 
-use super::lines::bresenham_line;
+use super::lines::{bresenham_line, draw_dda_line};
 use super::pixel::draw_pixel_color;
 
 pub fn fill_rectangle(x1: f32, y1: f32, x2: f32, y2: f32)
@@ -56,7 +56,7 @@ pub fn fill_rectangle_inundation(x1: f32, y1: f32, x2: f32, y2: f32, color: &Col
 
 // TODO: There is a bug in this function, it will draw and fill the circle but at
 //       compile/start time it will have a weird behavior (like screen tearing), fix that.
-pub fn fill_circle_scanline(xc: f32, yc: f32, r: f32, color: &Color)
+pub fn fill_circle_scanline(xc: f32, yc: f32, r: f32)
 {
     let mut x = 0.0;
     let mut y = r;
@@ -64,10 +64,10 @@ pub fn fill_circle_scanline(xc: f32, yc: f32, r: f32, color: &Color)
     let mut d = 1.0 - r;
 
     while x < y {
-        bresenham_line(xc + x, yc + y, xc - x, yc + y, color);
-        bresenham_line(xc + y, yc + x, xc - y, yc + x, color);
-        bresenham_line(xc + x, yc - y, xc - x, yc - y, color);
-        bresenham_line(xc + y, yc - x, xc - y, yc - x, color);
+        draw_dda_line(xc + x, yc + y, xc - x, yc + y);
+        draw_dda_line(xc + y, yc + x, xc - y, yc + x);
+        draw_dda_line(xc + x, yc - y, xc - x, yc - y);
+        draw_dda_line(xc + y, yc - x, xc - y, yc - x);
 
         if d < 0.0 {
             d += 2.0 * x + 3.0;

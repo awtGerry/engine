@@ -12,7 +12,7 @@ fn main()
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            engine::algorithms::curves::draw_flower(0.0, 0.5);
+            // engine::algorithms::curves::draw_flower(0.0, 0.5);
             // draw_flower(0.0, 0.5);
         }
         window.update();
