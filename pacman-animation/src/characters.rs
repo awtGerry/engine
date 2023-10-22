@@ -144,25 +144,25 @@ impl Pacman
         /* FIRST ONES ARE THE OUTER WALLS ALLWAYS */
 
         // HANDLE DOWN WALL COLLISION
-        if y == 26.0 || (x <= 127.0 && y <= 74.0) {
+        if y <= 26.0 || (x <= 127.0 && y <= 74.0) {
             self.y += 1.0;
             return true;
         }
 
         // HANDLE UP WALL COLLISION
-        if y == 574.0 {
+        if y >= 574.0 {
             self.y -= 1.0;
             return true;
         }
 
         // HANDLE LEFT WALL COLLISION
-        if x <= 26.0 || (x == 126.0 && y == 130.0) {
+        if x <= 26.0 || (x <= 126.0 && y == 130.0) {
             self.x += 1.0;
             return true;
         }
 
         // HANDLE RIGHT WALL COLLISION
-        if x == 574.0 || (x == 474.0 && y == 130.0) {
+        if x >= 574.0 || (x >= 474.0 && y == 130.0) {
             self.x -= 1.0;
             return true;
         }
