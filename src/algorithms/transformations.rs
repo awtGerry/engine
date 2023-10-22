@@ -2,11 +2,9 @@
  * 
 */
 
-use cgmath::Point3;
+use cgmath::{Matrix4, vec3, Transform, Point3};
 
 use crate::graphics::color::Color;
-
-use super::pixel::draw_pixel_color;
 
 pub fn translate(x: f32, y: f32, tx: f32, ty: f32) -> (f32, f32)
 {
@@ -28,3 +26,12 @@ pub fn translate(x: f32, y: f32, tx: f32, ty: f32) -> (f32, f32)
     (*x, *y)
 }
 
+/* pub fn scale(x: f32, y: f32, increment: f32)
+{
+    let mut translation_matrix: Matrix4<f32> = Matrix4::from_translation(vec3(0.0, 0.0, 0.0));
+    translation_matrix = translation_matrix * Matrix4::from_scale(increment);
+
+    let v1 = translation_matrix.transform_point(Point3::new(x1, y1, 0.0));
+    let v2 = translation_matrix.transform_point(Point3::new(x2, y2, 0.0));
+    transformation_rectangle(x1, x2, &[v1, v2], &Color::new(1.0, 0.0, 0.0));
+} */

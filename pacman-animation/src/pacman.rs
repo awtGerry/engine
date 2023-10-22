@@ -6,6 +6,7 @@ use rand::Rng;
 
 mod characters;
 mod walls;
+mod pellets;
 
 fn main()
 {
@@ -16,6 +17,7 @@ fn main()
     let y: f32 = 130.0;
 
     let mut radius: f32 = 20.0;
+    let mut increment: f32 = 0.0;
 
     // Chose a random start direction for pacman (just left or right)
     let mut rng = rand::thread_rng();
@@ -38,6 +40,13 @@ fn main()
             if radius < 5.0 {
                 radius = 20.0;
             }
+            if increment > 0.6 {
+                increment = 0.0;
+            }
+            pellets::big_pellet(37.0, 500.0, 57.0, 520.0, increment);
+            pellets::big_pellet(563.0, 500.0, 583.0, 520.0, increment);
+            pellets::big_pellet(35.0, 110.0, 55.0, 130.0, increment);
+            pellets::big_pellet(565.0, 110.0, 585.0, 130.0, increment);
             pacman.move_pacman();
             pacman.draw(radius);
             red_ghost.draw();
@@ -46,6 +55,7 @@ fn main()
             orange_ghost.draw();
             walls::draw_walls();
             radius -= 2.5;
+            increment += 0.1;
         }
         window.update();
     }

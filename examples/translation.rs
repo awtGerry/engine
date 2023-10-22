@@ -42,7 +42,7 @@ fn main()
 
             let v1 = translation_matrix.transform_point(Point3::new(x1, y1, 0.0));
             let v2 = translation_matrix.transform_point(Point3::new(x2, y2, 0.0));
-            transformation_rectangle(x1, x2, &[v1, v2], &Color::new(1.0, 0.0, 0.0));
+            transformation_rectangle(x1, x2, &[v1, v2], &Color::new(0.0, 1.0, 0.0));
 
             if increment > 1.0 {
                 increment = 0.0;
@@ -57,5 +57,5 @@ fn main()
 fn transformation_rectangle(x1: f32, y1: f32, vertices: &[Point3<f32>], color: &Color)
 {
     let radious = (vertices[1].x - vertices[0].x) / 2.0;
-    fill_circle_inundation(x1, y1, radious, &Color::new(0.0, 1.0, 0.0));
+    fill_circle_inundation(x1, y1, radious, color);
 }
