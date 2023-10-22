@@ -18,6 +18,8 @@ fn main()
 
     let mut radius: f32 = 20.0;
     let mut increment: f32 = 0.0;
+    // Timer (seconds) to control the ghost's movement
+    let mut timer: f32 = 0.0;
 
     // Chose a random start direction for pacman (just left or right)
     let mut rng = rand::thread_rng();
@@ -47,6 +49,7 @@ fn main()
             pellets::big_pellet(563.0, 500.0, 583.0, 520.0, increment);
             pellets::big_pellet(35.0, 110.0, 55.0, 130.0, increment);
             pellets::big_pellet(565.0, 110.0, 585.0, 130.0, increment);
+
             pacman.move_pacman();
             pacman.draw(radius);
             red_ghost.draw();
@@ -54,8 +57,10 @@ fn main()
             blue_ghost.draw();
             orange_ghost.draw();
             walls::draw_walls();
+
             radius -= 2.5;
             increment += 0.1;
+            timer += 0.01;
         }
         window.update();
     }
