@@ -2,6 +2,8 @@ use engine::{algorithms::fill::fill_rectangle_inundation, graphics::color::Color
 #[allow(unused_imports)]
 use engine::graphics::window::{WIDTH, HEIGHT};
 
+const THICK: f32 = 10.0;
+
 pub struct Wall {
     pub x1: f32,
     pub y1: f32,
@@ -35,8 +37,8 @@ pub fn draw_walls()
 
 fn ghost_rectangle(walls: &mut Vec<Wall>)
 {
+    // walls.push(Wall { x1: WIDTH/2.5, y1: HEIGHT/2.3, x2: WIDTH/1.5, y2: (WIDTH/2.5)+THICK }); // Left to right wall (bottom)
     walls.push(Wall { x1: 220.0, y1: 260.0, x2: 380.0, y2: 270.0 }); // Left to right wall (bottom)
-    // walls.push(Wall { x1: 220.0, y1: 345.0, x2: 380.0, y2: 347.0 }); // Left to right wall (top)
     walls.push(Wall { x1: 220.0, y1: 260.0, x2: 230.0, y2: 350.0 }); // Left to right wall (left)
     walls.push(Wall { x1: 370.0, y1: 260.0, x2: 380.0, y2: 350.0 }); // Left to right wall (right)
 }
@@ -105,27 +107,27 @@ fn inner_obstacles_top(walls: &mut Vec<Wall>)
 
 fn outside(walls: &mut Vec<Wall>)
 {
-    walls.push(Wall { x1: 0.0, y1: 0.0, x2: WIDTH, y2: 10.0 }); // Bottom wall
-    walls.push(Wall { x1: 0.0, y1: HEIGHT-10.0, x2: WIDTH, y2: HEIGHT }); // Top wall
+    walls.push(Wall { x1: 0.0, y1: 0.0, x2: WIDTH, y2: 0.0+THICK }); // Bottom wall
+    walls.push(Wall { x1: 0.0, y1: HEIGHT-THICK, x2: WIDTH, y2: HEIGHT }); // Top wall
 
-    walls.push(Wall { x1: 0.0, y1: 0.0, x2: 10.0, y2: HEIGHT }); // Left top wall
-    walls.push(Wall { x1: 0.0, y1: 0.0, x2: 10.0, y2: 200.0 }); // Left bottom wall
-    walls.push(Wall { x1: WIDTH-10.0, y1: 0.0, x2: WIDTH, y2: HEIGHT }); // Right top wall
-    walls.push(Wall { x1: WIDTH-10.0, y1: 0.0, x2: WIDTH, y2: 200.0 }); // Right bottom wall
+    walls.push(Wall { x1: 0.0, y1: HEIGHT/1.5, x2: THICK, y2: HEIGHT }); // Left top wall
+    walls.push(Wall { x1: 0.0, y1: 0.0, x2: THICK, y2: HEIGHT/3.0 }); // Left bottom wall
+    walls.push(Wall { x1: WIDTH-THICK, y1: HEIGHT/1.5, x2: WIDTH, y2: HEIGHT }); // Right top wall
+    walls.push(Wall { x1: WIDTH-THICK, y1: 0.0, x2: WIDTH, y2: HEIGHT/3.0 }); // Right bottom wall
 
-    walls.push(Wall { x1: 0.0, y1: 200.0, x2: 100.0, y2: 210.0 }); // Left to mid wall (bottom)
-    walls.push(Wall { x1: 100.0, y1: 200.0, x2: 110.0, y2: 260.0 }); // Left going up wall (bottom)
-    walls.push(Wall { x1: 0.0, y1: 260.0, x2: 110.0, y2: 270.0 }); // Left back to 0 wall (bottom)
+    walls.push(Wall { x1: 0.0, y1: HEIGHT/3.0, x2: HEIGHT/6.0, y2: (HEIGHT/3.0) + THICK }); // Left to mid wall (bottom)
+    walls.push(Wall { x1: HEIGHT/6.0, y1: HEIGHT/3.0, x2: (HEIGHT/6.0) + THICK, y2: HEIGHT/2.3 }); // Left going up wall (bottom)
+    walls.push(Wall { x1: 0.0, y1: HEIGHT/2.3, x2: (HEIGHT/6.0) + THICK, y2: (HEIGHT/2.3) + THICK }); // Left back to 0 wall (bottom)
 
-    walls.push(Wall { x1: 0.0, y1: 400.0, x2: 100.0, y2: 410.0 }); // Left to mid wall (top)
-    walls.push(Wall { x1: 100.0, y1: 340.0, x2: 110.0, y2: 410.0 }); // Left going down wall (top)
-    walls.push(Wall { x1: 0.0, y1: 340.0, x2: 110.0, y2: 350.0 }); // Left back to 0 wall (top)
+    walls.push(Wall { x1: 0.0, y1: HEIGHT/1.5, x2: HEIGHT/6.0, y2: (HEIGHT/1.5) + THICK }); // Left to mid wall (top)
+    walls.push(Wall { x1: HEIGHT/6.0, y1: HEIGHT/1.7, x2: (HEIGHT/6.0) + THICK, y2: (HEIGHT/1.5) + THICK }); // Left going down wall (top)
+    walls.push(Wall { x1: 0.0, y1: HEIGHT/1.7, x2: (HEIGHT/6.0) + THICK, y2: (HEIGHT/1.7) + THICK }); // Left back to 0 wall (top)
 
-    walls.push(Wall { x1: WIDTH-100.0, y1: 200.0, x2: WIDTH, y2: 210.0 }); // Right to mid wall (bottom)
-    walls.push(Wall { x1: WIDTH-110.0, y1: 200.0, x2: WIDTH-100.0, y2: 260.0 }); // Right going up wall (bottom)
-    walls.push(Wall { x1: WIDTH-110.0, y1: 260.0, x2: WIDTH, y2: 270.0 }); // Right back to 0 wall (bottom)
+    walls.push(Wall { x1: WIDTH-(WIDTH/6.0), y1: HEIGHT/3.0, x2: WIDTH, y2: (HEIGHT/3.0) + THICK }); // Right to mid wall (bottom)
+    walls.push(Wall { x1: WIDTH-(WIDTH/6.0+THICK), y1: HEIGHT/3.0, x2: WIDTH-(WIDTH/6.0), y2: HEIGHT/2.3 }); // Right going up wall (bottom)
+    walls.push(Wall { x1: WIDTH-(WIDTH/6.0+THICK), y1: HEIGHT/2.3, x2: WIDTH, y2: (HEIGHT/2.3) + THICK }); // Right back to 0 wall (bottom)
 
-    walls.push(Wall { x1: WIDTH-100.0, y1: 400.0, x2: WIDTH, y2: 410.0 }); // Right to mid wall (top)
-    walls.push(Wall { x1: WIDTH-110.0, y1: 340.0, x2: WIDTH-100.0, y2: 410.0 }); // Right going down wall (top)
-    walls.push(Wall { x1: WIDTH-110.0, y1: 340.0, x2: WIDTH, y2: 350.0 }); // Right back to 0 wall (top)
+    walls.push(Wall { x1: WIDTH-(WIDTH/6.0), y1: HEIGHT/1.5, x2: WIDTH, y2: (HEIGHT/1.5) + THICK }); // Right to mid wall (top)
+    walls.push(Wall { x1: WIDTH-(WIDTH/6.0+THICK), y1: HEIGHT/1.7, x2: WIDTH-(WIDTH/6.0), y2: (HEIGHT/1.5) + THICK }); // Right going down wall (top)
+    walls.push(Wall { x1: WIDTH-(WIDTH/6.0+THICK), y1: HEIGHT/1.7, x2: WIDTH, y2: (HEIGHT/1.7) + THICK }); // Right back to 0 wall (top)
 }
