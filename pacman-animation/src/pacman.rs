@@ -20,7 +20,7 @@ fn main()
 
     let mut hit_ghost: bool = false;
 
-    let mut radius: f32 = 20.0;
+    let mut radius: f32 = 10.0;
     let mut increment: f32 = 0.0;
     // Timer (seconds) to control the ghost's movement
     let mut timer: f32 = 0.0;
@@ -33,41 +33,44 @@ fn main()
     }
     let mut pacman = characters::Pacman::new(x, y, direction, 10.0);
 
-    let mut red_ghost = characters::Ghost::new((WIDTH/2.0)-50.0, HEIGHT/2.0, Color::new(1.0, 0.0, 0.0));
-    let mut pink_ghost = characters::Ghost::new((WIDTH/2.0)-20.0, HEIGHT/2.0, Color::new(1.0, 0.68, 0.88));
-    let mut blue_ghost = characters::Ghost::new((WIDTH/2.0)+20.0, HEIGHT/2.0, Color::new(0.0, 0.9, 0.8));
-    let mut orange_ghost = characters::Ghost::new((WIDTH/2.0)+50.0, HEIGHT/2.0, Color::new(1.0, 0.6, 0.0));
+    let red_ghost = characters::Ghost::new((WIDTH/2.0)-50.0, HEIGHT/2.0, Color::new(1.0, 0.0, 0.0));
+    let pink_ghost = characters::Ghost::new((WIDTH/2.0)-20.0, HEIGHT/2.0, Color::new(1.0, 0.68, 0.88));
+    let blue_ghost = characters::Ghost::new((WIDTH/2.0)+20.0, HEIGHT/2.0, Color::new(0.0, 0.9, 0.8));
+    let orange_ghost = characters::Ghost::new((WIDTH/2.0)+50.0, HEIGHT/2.0, Color::new(1.0, 0.6, 0.0));
 
+    // Put the ghosts in a vector to iterate over them
     let mut ghosts: Vec<characters::Ghost> = vec![red_ghost, pink_ghost, blue_ghost, orange_ghost];
+    let mut consumed_pellets = Vec::new();
+
+    for i in (0..600).step_by(40) {
+        for j in (0..600).step_by(40) {
+            let pellet = pellets::Pellet {
+                x: i as f32,
+                y: j as f32,
+                eaten: false,
+            };
+            consumed_pellets.push(pellet);
+        }
+    }
 
     while !window.should_close()
     {
         unsafe {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
-            walls::draw_walls();
 
             if radius < 5.0 {
-                radius = 20.0;
+                radius = 10.0;
             }
             if increment > 0.6 {
                 increment = 0.0;
             }
 
-            // First ghost to move is the red one
+            // Move the ghosts
             ghosts[0].move_ghost();
-
-            if timer >= 2.5 {
-                ghosts[2].move_ghost();
-            }
-
-            if timer >= 5.0 {
-                ghosts[1].move_ghost();
-            }
-
-            if timer >= 7.5 {
-                ghosts[3].move_ghost();
-            }
+            if timer >= 2.5 { ghosts[2].move_ghost(); }
+            if timer >= 5.0 { ghosts[1].move_ghost(); }
+            if timer >= 7.5 { ghosts[3].move_ghost(); }
 
             for ghost in &mut ghosts {
                 if is_collision(&pacman, ghost) {
@@ -78,6 +81,7 @@ fn main()
 
             if hit_ghost {
                 pacman.handle_death(timer);
+                walls::draw_walls();
             } else {
                 process_events(&mut window, &mut pacman);
                 pacman.move_pacman();
@@ -86,12 +90,15 @@ fn main()
                 ghosts[1].draw();
                 ghosts[2].draw();
                 ghosts[3].draw();
-                pellets::draw_small_pellet(pacman.get_x(), pacman.get_y());
 
+                // pellets::draw_small_pellet(pacman.get_x(), pacman.get_y());
+                pellets::draw_small_pellet(pacman.get_x(), pacman.get_y(), &mut consumed_pellets);
                 pellets::big_pellet(37.0, 500.0, 57.0, 520.0, increment);
                 pellets::big_pellet(563.0, 500.0, 583.0, 520.0, increment);
                 pellets::big_pellet(35.0, 110.0, 55.0, 130.0, increment);
                 pellets::big_pellet(565.0, 110.0, 585.0, 130.0, increment);
+
+                walls::draw_walls();
             }
 
             radius -= 2.5;

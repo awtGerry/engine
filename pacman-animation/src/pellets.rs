@@ -5,55 +5,40 @@ use cgmath::{Matrix4, vec3, Transform, Point3};
 use engine::graphics::color::Color;
 use engine::algorithms::fill::fill_circle_inundation;
 
-pub fn draw_small_pellet(pacman_x: f32, pacman_y: f32)
+pub struct Pellet {
+    pub x: f32,
+    pub y: f32,
+    pub eaten: bool,
+}
+
+pub fn draw_small_pellet(pacman_x: f32, pacman_y: f32, pellets: &mut Vec<Pellet>)
 {
-    // Create a data structure to represent the pellets
-    struct Pellet {
-        x: f32,
-        y: f32,
-        eaten: bool,
-    }
-
-    let mut pellets = Vec::new();
-
-    // Fill the screen with small pellets
-    for i in (0..600).step_by(40) {
-        for j in (0..600).step_by(40) {
-            let mut pellet = Pellet {
-                x: i as f32,
-                y: j as f32,
-                eaten: false,
-            };
-
-            // Check if Pacman passed through the pellet
-            if (pacman_x - pellet.x).abs() < 10.0 && (pacman_y - pellet.y).abs() < 10.0 {
-                // Mark the pellet as "eaten"
-                pellet.eaten = true;
-            }
-
-            pellets.push(pellet);
-        }
-    }
-
-    // Draw the pellets that are not "eaten"
-    for pellet in &pellets {
+    // Draw the pellets that have not been eaten
+    for pellet in pellets.iter_mut() {
         if !pellet.eaten {
-            // Don't draw the pellet if is inside ghost rectangle
             if pellet.x > 140.0 && pellet.x < 460.0 && pellet.y > 200.0 && pellet.y < 420.0 {
                 continue;
             }
 
-            // Dont draw it if is outside (left)
+            // Don't draw it if it's outside (left)
             if pellet.x >= 0.0 && pellet.x < 110.0 && pellet.y > 190.0 && pellet.y < 440.0 {
                 continue;
             }
 
-            // Dont draw it if is outside (right)
+            // Don't draw it if it's outside (right)
             if pellet.x > 490.0 && pellet.x <= 600.0 && pellet.y > 190.0 && pellet.y < 440.0 {
                 continue;
             }
 
             fill_circle_inundation(pellet.x, pellet.y, 2.0, &Color::new(1.0, 1.0, 1.0));
+        }
+    }
+
+    // Check if Pacman passed through the pellets
+    for pellet in pellets.iter_mut() {
+        if !pellet.eaten && (pacman_x - pellet.x).abs() < 10.0 && (pacman_y - pellet.y).abs() < 10.0 {
+            // Mark the pellet as "eaten"
+            pellet.eaten = true;
         }
     }
 }
