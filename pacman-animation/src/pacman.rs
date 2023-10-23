@@ -1,3 +1,5 @@
+use engine::algorithms::curves;
+use engine::algorithms::fill::fill_rectangle_inundation;
 use engine::graphics::window::{WIDTH, HEIGHT, Window};
 use engine::graphics::color::Color;
 use glfw::{WindowEvent, Key, Action};
@@ -15,6 +17,8 @@ fn main()
 
     let x: f32 = (WIDTH/2.0)+7.0;
     let y: f32 = 130.0;
+
+    let mut hit_ghost: bool = false;
 
     let mut radius: f32 = 20.0;
     let mut increment: f32 = 0.0;
@@ -34,11 +38,15 @@ fn main()
     let mut blue_ghost = characters::Ghost::new((WIDTH/2.0)+20.0, HEIGHT/2.0, Color::new(0.0, 0.9, 0.8));
     let mut orange_ghost = characters::Ghost::new((WIDTH/2.0)+50.0, HEIGHT/2.0, Color::new(1.0, 0.6, 0.0));
 
+    let mut ghosts: Vec<characters::Ghost> = vec![red_ghost, pink_ghost, blue_ghost, orange_ghost];
+
     while !window.should_close()
     {
         unsafe {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
             gl::Clear(gl::COLOR_BUFFER_BIT);
+            walls::draw_walls();
+
             if radius < 5.0 {
                 radius = 20.0;
             }
@@ -46,33 +54,49 @@ fn main()
                 increment = 0.0;
             }
 
-            pellets::draw_small_pellet(pacman.get_x(), pacman.get_y());
-
-            pellets::big_pellet(37.0, 500.0, 57.0, 520.0, increment);
-            pellets::big_pellet(563.0, 500.0, 583.0, 520.0, increment);
-            pellets::big_pellet(35.0, 110.0, 55.0, 130.0, increment);
-            pellets::big_pellet(565.0, 110.0, 585.0, 130.0, increment);
-
             // First ghost to move is the red one
-            red_ghost.move_ghost();
+            ghosts[0].move_ghost();
 
             if timer >= 2.5 {
-                blue_ghost.move_ghost();
+                ghosts[2].move_ghost();
             }
 
-            process_events(&mut window, &mut pacman);
-            pacman.move_pacman();
-            pacman.draw(radius);
-            red_ghost.draw();
-            pink_ghost.draw();
-            blue_ghost.draw();
-            orange_ghost.draw();
-            walls::draw_walls();
+            if timer >= 5.0 {
+                ghosts[1].move_ghost();
+            }
+
+            if timer >= 7.5 {
+                ghosts[3].move_ghost();
+            }
+
+            for ghost in &mut ghosts {
+                if is_collision(&pacman, ghost) {
+                    hit_ghost = true;
+                    break;
+                }
+            }
+
+            if hit_ghost {
+                pacman.handle_death(timer);
+            } else {
+                process_events(&mut window, &mut pacman);
+                pacman.move_pacman();
+                pacman.draw(radius);
+                ghosts[0].draw();
+                ghosts[1].draw();
+                ghosts[2].draw();
+                ghosts[3].draw();
+                pellets::draw_small_pellet(pacman.get_x(), pacman.get_y());
+
+                pellets::big_pellet(37.0, 500.0, 57.0, 520.0, increment);
+                pellets::big_pellet(563.0, 500.0, 583.0, 520.0, increment);
+                pellets::big_pellet(35.0, 110.0, 55.0, 130.0, increment);
+                pellets::big_pellet(565.0, 110.0, 585.0, 130.0, increment);
+            }
 
             radius -= 2.5;
             increment += 0.1;
             timer += 0.01;
-            println!("timer: {}", timer);
         }
         window.update();
     }
@@ -100,4 +124,10 @@ fn process_events(window: &mut Window, pacman: &mut characters::Pacman)
             _ => {}
         }
     }
+}
+
+fn is_collision(pacman: &characters::Pacman, ghost: &characters::Ghost) -> bool
+{
+    let distance = ((pacman.get_x() - ghost.get_x()).powi(2) + (pacman.get_y() - ghost.get_y()).powi(2)).sqrt();
+    distance < 10.0 // Adjust COLLISION_THRESHOLD as needed
 }

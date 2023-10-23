@@ -1,6 +1,8 @@
 use engine::algorithms::fill::{fill_circle_inundation, fill_triangle_inundation, fill_rectangle_inundation};
 use engine::algorithms::transformations::translate;
+use engine::algorithms::curves::draw_sun;
 use engine::graphics::color::Color;
+use cgmath::{Matrix4, vec3, Rad, Transform, Point3};
 use rand::Rng;
 
 #[derive(PartialEq)]
@@ -181,6 +183,11 @@ impl Pacman
         {
             self.change_direction();
         }
+
+        if self.x <= 1.0 && (self.y >= 290.0 && self.y<= 310.0)
+        {
+            self.x = 599.0;
+        }
     }
 
     fn change_direction(&mut self)
@@ -260,18 +267,38 @@ impl Pacman
         }
 
         // HANDLE LEFT WALL COLLISION
-        if x <= 26.0 || (x <= 126.0 && y == 130.0) {
+        if (x <= 26.0 && y != 300.0) || (x <= 126.0 && y == 130.0) {
             self.x += 1.0;
             return true;
         }
 
         // HANDLE RIGHT WALL COLLISION
-        if x >= 574.0 || (x >= 474.0 && y == 130.0) || (x == 154.0 && y == 75.0)
+        if (x >= 574.0 && y != 300.0) || (x >= 474.0 && y == 130.0) || (x == 154.0 && y == 75.0)
         {
             self.x -= 1.0;
             return true;
         }
 
         false
+    }
+
+    pub fn handle_death(&mut self, increment: f32)
+    {
+        let rotation_matrix: Matrix4<f32> = cgmath::Matrix4::from_angle_z(Rad(increment));
+        let translation_matrix: Matrix4<f32> = cgmath::Matrix4::from_translation(vec3(self.x, self.y, 0.0));
+        let transformation_matrix = translation_matrix * rotation_matrix * translation_matrix.inverse_transform().unwrap();
+
+        let v1 = transformation_matrix.transform_point(Point3::new(self.x-7.0, self.y-7.0, 0.0));
+        let v2 = transformation_matrix.transform_point(Point3::new(self.x+7.0, self.y-7.0, 0.0));
+        let v3 = transformation_matrix.transform_point(Point3::new(self.x+7.0, self.y+7.0, 0.0));
+        let v4 = transformation_matrix.transform_point(Point3::new(self.x-7.0, self.y+7.0, 0.0));
+        self.rotate_sun(&[v1, v2, v3, v4], &Color::new(1.0, 1.0, 0.0));
+    }
+
+    fn rotate_sun(&mut self, vertices: &[Point3<f32>], color: &Color)
+    {
+        for i in 0..vertices.len() {
+            draw_sun(vertices[i].x, vertices[i].y, 100, 2.0, color);
+        }
     }
 }
