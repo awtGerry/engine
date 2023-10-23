@@ -1,6 +1,6 @@
-use engine::algorithms::fill::{fill_rectangle, fill_rectangle_inundation, fill_circle_inundation};
-use engine::algorithms::lines::bresenham_line;
-use engine::algorithms::pixel::draw_pixel_color;
+// use engine::algorithms::fill::{fill_rectangle, fill_rectangle_inundation, fill_circle_inundation};
+// use engine::algorithms::lines::bresenham_line;
+// use engine::algorithms::pixel::draw_pixel_color;
 // use engine::algorithms::transformations::translate;
 use engine::algorithms::curves::draw_sun;
 use engine::graphics::color::Color;
@@ -46,7 +46,7 @@ fn main()
             // let v1 = translation_matrix.transform_point(Point3::new(x1, y1, 0.0));
             // let v2 = translation_matrix.transform_point(Point3::new(x2, y2, 0.0));
 
-            transformation_rectangle(x1, x2, &[v1, v2, v3, v4], &Color::new(0.0, 1.0, 0.0));
+            transformation_rectangle(&[v1, v2, v3, v4], &Color::new(0.0, 1.0, 0.0));
 
             // if increment > 1.0 {
             //     increment = 0.0;
@@ -58,7 +58,7 @@ fn main()
 
 }
 
-fn transformation_rectangle(x1: f32, y1: f32, vertices: &[Point3<f32>], color: &Color)
+fn transformation_rectangle(vertices: &[Point3<f32>], color: &Color)
 {
     for i in 0..4 {
         // draw_pixel_color(vertices[i].x as i32, vertices[i].y as i32, color);

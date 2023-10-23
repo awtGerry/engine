@@ -1,119 +1,131 @@
+use engine::{algorithms::fill::fill_rectangle_inundation, graphics::color::Color};
 #[allow(unused_imports)]
 use engine::graphics::window::{WIDTH, HEIGHT};
-use engine::graphics::color::Color;
-use engine::algorithms::fill::fill_rectangle_inundation;
+
+pub struct Wall {
+    pub x1: f32,
+    pub y1: f32,
+    pub x2: f32,
+    pub y2: f32,
+}
+
+pub fn walls_cords() -> Vec<Wall>
+{
+    let mut walls: Vec<Wall> = Vec::new();
+    outside(&mut walls);
+    ghost_rectangle(&mut walls);
+    inner_obstacles_bottom(&mut walls);
+    inner_obstacles_top(&mut walls);
+
+    walls
+}
+
+pub fn get_walls() -> Vec<Wall>
+{
+    walls_cords()
+}
 
 pub fn draw_walls()
 {
-    outside();
-    ghost_rectangle();
-    inner_obstacles_bottom();
-    inner_obstacles_top();
+    let walls = get_walls();
+    for wall in walls {
+        fill_rectangle_inundation(wall.x1, wall.y1, wall.x2, wall.y2, &Color::new(0.0, 0.0, 1.0));
+    }
 }
 
-fn ghost_rectangle()
+fn ghost_rectangle(walls: &mut Vec<Wall>)
 {
-    let wall_color: Color = Color::new(0.0, 0.25, 0.8);
-
-    /* GHOST's RECTANGLE */
-    fill_rectangle_inundation(220.0, 260.0, 380.0, 270.0, &wall_color); // Left to right wall (bottom)
-    fill_rectangle_inundation(220.0, 345.0, 380.0, 347.0, &Color::new(1.0, 1.0, 0.0)); // Left to right wall (top)
-    fill_rectangle_inundation(220.0, 260.0, 230.0, 350.0, &wall_color); // Left to right wall (left)
-    fill_rectangle_inundation(370.0, 260.0, 380.0, 350.0, &wall_color); // Left to right wall (right)
+    walls.push(Wall { x1: 220.0, y1: 260.0, x2: 380.0, y2: 270.0 }); // Left to right wall (bottom)
+    // walls.push(Wall { x1: 220.0, y1: 345.0, x2: 380.0, y2: 347.0 }); // Left to right wall (top)
+    walls.push(Wall { x1: 220.0, y1: 260.0, x2: 230.0, y2: 350.0 }); // Left to right wall (left)
+    walls.push(Wall { x1: 370.0, y1: 260.0, x2: 380.0, y2: 350.0 }); // Left to right wall (right)
 }
 
-fn inner_obstacles_bottom()
+fn inner_obstacles_bottom(walls: &mut Vec<Wall>)
 {
-    let wall_color: Color = Color::new(0.0, 0.25, 0.8);
-
     /* LEFT BOTTOM OBSTACLES */
-    fill_rectangle_inundation(0.0, 100.0, 50.0, 110.0, &wall_color); // Left bottom obstacle
-    fill_rectangle_inundation(100.0, 100.0, 110.0, 160.0, &wall_color); // L shape
-    fill_rectangle_inundation(60.0, 150.0, 110.0, 160.0, &wall_color); // L shape
+    walls.push(Wall { x1: 0.0, y1: 100.0, x2: 50.0, y2: 110.0 }); // Left bottom obstacle
+    walls.push(Wall { x1: 100.0, y1: 100.0, x2: 110.0, y2: 160.0 }); // L shape
+    walls.push(Wall { x1: 60.0, y1: 150.0, x2: 110.0, y2: 160.0 }); // L shape
 
-    fill_rectangle_inundation(50.0, 50.0, 250.0, 60.0, &wall_color); // Left middle obstacle
-    fill_rectangle_inundation(160.0, 50.0, 170.0, 110.0, &wall_color); // Left middle obstacle
+    walls.push(Wall { x1: 50.0, y1: 50.0, x2: 250.0, y2: 60.0 }); // Left middle obstacle
+    walls.push(Wall { x1: 160.0, y1: 50.0, x2: 170.0, y2: 110.0 }); // Left middle obstacle
 
-    fill_rectangle_inundation(160.0, 200.0, 170.0, 270.0, &wall_color); // Left middle obstacle
+    walls.push(Wall { x1: 160.0, y1: 200.0, x2: 170.0, y2: 270.0 }); // Left middle obstacle
 
-    fill_rectangle_inundation(160.0, 150.0, 240.0, 160.0, &wall_color); // left small wall
+    walls.push(Wall { x1: 160.0, y1: 150.0, x2: 240.0, y2: 160.0 }); // left small wall
 
     /* MID BOTTOM OBSTACLES */
-    // T shape (top)
-    fill_rectangle_inundation(300.0, 150.0, 310.0, 210.0, &wall_color);
-    fill_rectangle_inundation(300.0, 200.0, 380.0, 210.0, &wall_color);
-    fill_rectangle_inundation(220.0, 200.0, 300.0, 210.0, &wall_color);
+    walls.push(Wall { x1: 300.0, y1: 150.0, x2: 310.0, y2: 210.0 }); // T shape (top)
+    walls.push(Wall { x1: 300.0, y1: 200.0, x2: 380.0, y2: 210.0 }); // T shape (top)
+    walls.push(Wall { x1: 220.0, y1: 200.0, x2: 300.0, y2: 210.0 }); // T shape (top)
 
-    // T shape (bottom)
-    fill_rectangle_inundation(300.0, 50.0, 310.0, 110.0, &wall_color);
-    fill_rectangle_inundation(300.0, 100.0, 380.0, 110.0, &wall_color);
-    fill_rectangle_inundation(220.0, 100.0, 300.0, 110.0, &wall_color);
+    walls.push(Wall { x1: 300.0, y1: 50.0, x2: 310.0, y2: 110.0 }); // T shape (bottom)
+    walls.push(Wall { x1: 300.0, y1: 100.0, x2: 380.0, y2: 110.0 }); // T shape (bottom)
+    walls.push(Wall { x1: 220.0, y1: 100.0, x2: 300.0, y2: 110.0 }); // T shape (bottom)
 
     /* RIGHT BOTTOM OBSTACLES */
-    fill_rectangle_inundation(WIDTH-110.0, 100.0, WIDTH-100.0, 160.0, &wall_color); // Right middle obstacle
-    fill_rectangle_inundation(WIDTH-110.0, 150.0, WIDTH-60.0, 160.0, &wall_color); // Right middle obstacle
-    fill_rectangle_inundation(WIDTH-50.0, 100.0, WIDTH, 110.0, &wall_color); // Right bottom obstacle
+    walls.push(Wall { x1: WIDTH-110.0, y1: 100.0, x2: WIDTH-100.0, y2: 160.0 }); // Right middle obstacle
+    walls.push(Wall { x1: WIDTH-110.0, y1: 150.0, x2: WIDTH-60.0, y2: 160.0 }); // Right middle obstacle
+    walls.push(Wall { x1: WIDTH-50.0, y1: 100.0, x2: WIDTH, y2: 110.0 }); // Right bottom obstacle
 
-    fill_rectangle_inundation(WIDTH-250.0, 50.0, WIDTH-50.0, 60.0, &wall_color); // Right middle obstacle
-    fill_rectangle_inundation(WIDTH-170.0, 50.0, WIDTH-160.0, 110.0, &wall_color); // Right middle obstacle
+    walls.push(Wall { x1: WIDTH-250.0, y1: 50.0, x2: WIDTH-50.0, y2: 60.0 }); // Right middle obstacle
+    walls.push(Wall { x1: WIDTH-170.0, y1: 50.0, x2: WIDTH-160.0, y2: 110.0 }); // Right middle obstacle
 
-    fill_rectangle_inundation(430.0, 200.0, 440.0, 270.0, &wall_color); // Right middle obstacle
+    walls.push(Wall { x1: 430.0, y1: 200.0, x2: 440.0, y2: 270.0 }); // Right middle obstacle
 
-    fill_rectangle_inundation(360.0, 150.0, 440.0, 160.0, &wall_color); // right small wall
+    walls.push(Wall { x1: 360.0, y1: 150.0, x2: 440.0, y2: 160.0 }); // right small wall
 }
 
-fn inner_obstacles_top()
+fn inner_obstacles_top(walls: &mut Vec<Wall>)
 {
-    let wall_color: Color = Color::new(0.0, 0.25, 0.8);
+    walls.push(Wall { x1: 300.0, y1: 500.0, x2: 310.0, y2: 600.0 }); // Top T with outer wall
 
-    fill_rectangle_inundation(300.0, 500.0, 310.0, 600.0, &wall_color); // Top T with outer wall
-
-    fill_rectangle_inundation(230.0, 450.0, 370.0, 460.0, &wall_color); // Top T
-    fill_rectangle_inundation(300.0, 400.0, 310.0, 460.0, &wall_color); // Top T
+    walls.push(Wall { x1: 230.0, y1: 450.0, x2: 370.0, y2: 460.0 }); // Top T
+    walls.push(Wall { x1: 300.0, y1: 400.0, x2: 310.0, y2: 460.0 }); // Top T
 
     /* LEFT */
-    fill_rectangle_inundation(160.0, 340.0, 170.0, 460.0, &wall_color); // Mid inverted T
-    fill_rectangle_inundation(160.0, 400.0, 240.0, 410.0, &wall_color); // Mid inverted T
+    walls.push(Wall { x1: 160.0, y1: 340.0, x2: 170.0, y2: 460.0 }); // Mid inverted T
+    walls.push(Wall { x1: 160.0, y1: 400.0, x2: 240.0, y2: 410.0 }); // Mid inverted T
 
-    fill_rectangle_inundation(60.0, 450.0, 110.0, 460.0, &wall_color); // Little left wall
+    walls.push(Wall { x1: 60.0, y1: 450.0, x2: 110.0, y2: 460.0 }); // Little left wall
 
-    fill_rectangle_inundation(60.0, 500.0, 110.0, 540.0, &wall_color); // Rectangle 1
-    fill_rectangle_inundation(160.0, 500.0, 240.0, 540.0, &wall_color); // Rectangle 2
+    walls.push(Wall { x1: 60.0, y1: 500.0, x2: 110.0, y2: 540.0 }); // Rectangle 1
+    walls.push(Wall { x1: 160.0, y1: 500.0, x2: 240.0, y2: 540.0 }); // Rectangle 2
 
     /* RIGHT */
-    fill_rectangle_inundation(430.0, 340.0, 440.0, 460.0, &wall_color); // Mid inverted T
-    fill_rectangle_inundation(360.0, 400.0, 440.0, 410.0, &wall_color); // Mid inverted T
+    walls.push(Wall { x1: 430.0, y1: 340.0, x2: 440.0, y2: 460.0 }); // Mid inverted T
+    walls.push(Wall { x1: 360.0, y1: 400.0, x2: 440.0, y2: 410.0 }); // Mid inverted T
 
-    fill_rectangle_inundation(WIDTH-100.0, 450.0, WIDTH-60.0, 460.0, &wall_color); // Little right wall
+    walls.push(Wall { x1: WIDTH-100.0, y1: 450.0, x2: WIDTH-60.0, y2: 460.0 }); // Little right wall
 
-    fill_rectangle_inundation(WIDTH-100.0, 500.0, WIDTH-60.0, 540.0, &wall_color); // Rectangle 1
-    fill_rectangle_inundation(WIDTH-240.0, 500.0, WIDTH-160.0, 540.0, &wall_color); // Rectangle 2
+    walls.push(Wall { x1: WIDTH-100.0, y1: 500.0, x2: WIDTH-60.0, y2: 540.0 }); // Rectangle 1
+    walls.push(Wall { x1: WIDTH-240.0, y1: 500.0, x2: WIDTH-160.0, y2: 540.0 }); // Rectangle 2
 }
 
-fn outside()
+fn outside(walls: &mut Vec<Wall>)
 {
-    let wall_color: Color = Color::new(0.0, 0.25, 0.8);
-    fill_rectangle_inundation(0.0, 0.0, WIDTH, 10.0, &wall_color); // Bottom wall
-    fill_rectangle_inundation(0.0, HEIGHT-10.0, WIDTH, HEIGHT, &wall_color); // Top wall
+    walls.push(Wall { x1: 0.0, y1: 0.0, x2: WIDTH, y2: 10.0 }); // Bottom wall
+    walls.push(Wall { x1: 0.0, y1: HEIGHT-10.0, x2: WIDTH, y2: HEIGHT }); // Top wall
 
-    fill_rectangle_inundation(0.0, 400.0, 10.0, HEIGHT, &wall_color); // Left top wall
-    fill_rectangle_inundation(0.0, 0.0, 10.0, 200.0, &wall_color); // Left bottom wall
-    fill_rectangle_inundation(WIDTH-10.0, 400.0, WIDTH, HEIGHT, &wall_color); // Right top wall
-    fill_rectangle_inundation(WIDTH-10.0, 0.0, WIDTH, 200.0, &wall_color); // Right bottom wall
+    walls.push(Wall { x1: 0.0, y1: 0.0, x2: 10.0, y2: HEIGHT }); // Left top wall
+    walls.push(Wall { x1: 0.0, y1: 0.0, x2: 10.0, y2: 200.0 }); // Left bottom wall
+    walls.push(Wall { x1: WIDTH-10.0, y1: 0.0, x2: WIDTH, y2: HEIGHT }); // Right top wall
+    walls.push(Wall { x1: WIDTH-10.0, y1: 0.0, x2: WIDTH, y2: 200.0 }); // Right bottom wall
 
-    fill_rectangle_inundation(0.0, 200.0, 100.0, 210.0, &wall_color); // Left to mid wall (bottom)
-    fill_rectangle_inundation(100.0, 200.0, 110.0, 260.0, &wall_color); // Left going up wall (bottom)
-    fill_rectangle_inundation(0.0, 260.0, 110.0, 270.0, &wall_color); // Left back to 0 wall (bottom)
+    walls.push(Wall { x1: 0.0, y1: 200.0, x2: 100.0, y2: 210.0 }); // Left to mid wall (bottom)
+    walls.push(Wall { x1: 100.0, y1: 200.0, x2: 110.0, y2: 260.0 }); // Left going up wall (bottom)
+    walls.push(Wall { x1: 0.0, y1: 260.0, x2: 110.0, y2: 270.0 }); // Left back to 0 wall (bottom)
 
-    fill_rectangle_inundation(0.0, 400.0, 100.0, 410.0, &wall_color); // Left to mid wall (top)
-    fill_rectangle_inundation(100.0, 340.0, 110.0, 410.0, &wall_color); // Left going down wall (top)
-    fill_rectangle_inundation(0.0, 340.0, 110.0, 350.0, &wall_color); // Left back to 0 wall (top)
+    walls.push(Wall { x1: 0.0, y1: 400.0, x2: 100.0, y2: 410.0 }); // Left to mid wall (top)
+    walls.push(Wall { x1: 100.0, y1: 340.0, x2: 110.0, y2: 410.0 }); // Left going down wall (top)
+    walls.push(Wall { x1: 0.0, y1: 340.0, x2: 110.0, y2: 350.0 }); // Left back to 0 wall (top)
 
-    fill_rectangle_inundation(WIDTH-100.0, 200.0, WIDTH, 210.0, &wall_color); // Right to mid wall (bottom)
-    fill_rectangle_inundation(WIDTH-110.0, 200.0, WIDTH-100.0, 260.0, &wall_color); // Right going up wall (bottom)
-    fill_rectangle_inundation(WIDTH-110.0, 260.0, WIDTH, 270.0, &wall_color); // Right back to 0 wall (bottom)
+    walls.push(Wall { x1: WIDTH-100.0, y1: 200.0, x2: WIDTH, y2: 210.0 }); // Right to mid wall (bottom)
+    walls.push(Wall { x1: WIDTH-110.0, y1: 200.0, x2: WIDTH-100.0, y2: 260.0 }); // Right going up wall (bottom)
+    walls.push(Wall { x1: WIDTH-110.0, y1: 260.0, x2: WIDTH, y2: 270.0 }); // Right back to 0 wall (bottom)
 
-    fill_rectangle_inundation(WIDTH-100.0, 400.0, WIDTH, 410.0, &wall_color); // Right to mid wall (top)
-    fill_rectangle_inundation(WIDTH-110.0, 340.0, WIDTH-100.0, 410.0, &wall_color); // Right going down wall (top)
-    fill_rectangle_inundation(WIDTH-110.0, 340.0, WIDTH, 350.0, &wall_color); // Right back to 0 wall (top)
+    walls.push(Wall { x1: WIDTH-100.0, y1: 400.0, x2: WIDTH, y2: 410.0 }); // Right to mid wall (top)
+    walls.push(Wall { x1: WIDTH-110.0, y1: 340.0, x2: WIDTH-100.0, y2: 410.0 }); // Right going down wall (top)
+    walls.push(Wall { x1: WIDTH-110.0, y1: 340.0, x2: WIDTH, y2: 350.0 }); // Right back to 0 wall (top)
 }

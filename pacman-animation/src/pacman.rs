@@ -31,7 +31,7 @@ fn main()
     if rng.gen_range(0..2) == 1 {
         direction = characters::Direction::Right;
     }
-    let mut pacman = characters::Pacman::new(x, y, direction, 10.0);
+    let mut pacman = characters::Pacman::new(x, y, direction, 12.0);
 
     let red_ghost = characters::Ghost::new((WIDTH/2.0)-50.0, HEIGHT/2.0, Color::new(1.0, 0.0, 0.0));
     let pink_ghost = characters::Ghost::new((WIDTH/2.0)-20.0, HEIGHT/2.0, Color::new(1.0, 0.68, 0.88));
@@ -41,9 +41,9 @@ fn main()
     // Put the ghosts in a vector to iterate over them
     let mut ghosts: Vec<characters::Ghost> = vec![red_ghost, pink_ghost, blue_ghost, orange_ghost];
     let mut consumed_pellets = Vec::new();
-
-    for i in (0..600).step_by(40) {
-        for j in (0..600).step_by(40) {
+    // Draw the pellets
+    for i in (0..600).step_by(25) {
+        for j in (0..600).step_by(27) {
             let pellet = pellets::Pellet {
                 x: i as f32,
                 y: j as f32,
@@ -81,6 +81,7 @@ fn main()
 
             if hit_ghost {
                 pacman.handle_death(timer);
+                // walls::get_walls();
                 walls::draw_walls();
             } else {
                 process_events(&mut window, &mut pacman);
@@ -91,13 +92,13 @@ fn main()
                 ghosts[2].draw();
                 ghosts[3].draw();
 
-                // pellets::draw_small_pellet(pacman.get_x(), pacman.get_y());
                 pellets::draw_small_pellet(pacman.get_x(), pacman.get_y(), &mut consumed_pellets);
-                pellets::big_pellet(37.0, 500.0, 57.0, 520.0, increment);
-                pellets::big_pellet(563.0, 500.0, 583.0, 520.0, increment);
-                pellets::big_pellet(35.0, 110.0, 55.0, 130.0, increment);
-                pellets::big_pellet(565.0, 110.0, 585.0, 130.0, increment);
+                pellets::big_pellet(25.0, 493.0, 45.0, 513.0, increment);
+                pellets::big_pellet(575.0, 493.0, 595.0, 513.0, increment);
+                pellets::big_pellet(25.0, 140.0, 45.0, 160.0, increment);
+                pellets::big_pellet(575.0, 140.0, 595.0, 160.0, increment);
 
+                // walls::get_walls();
                 walls::draw_walls();
             }
 

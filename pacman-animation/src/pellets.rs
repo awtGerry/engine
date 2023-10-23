@@ -21,12 +21,21 @@ pub fn draw_small_pellet(pacman_x: f32, pacman_y: f32, pellets: &mut Vec<Pellet>
             }
 
             // Don't draw it if it's outside (left)
-            if pellet.x >= 0.0 && pellet.x < 110.0 && pellet.y > 190.0 && pellet.y < 440.0 {
+            if pellet.x >= 0.0 && pellet.x < 110.0 && pellet.y > 190.0 && pellet.y < 430.0 {
                 continue;
             }
 
             // Don't draw it if it's outside (right)
-            if pellet.x > 490.0 && pellet.x <= 600.0 && pellet.y > 190.0 && pellet.y < 440.0 {
+            if pellet.x > 490.0 && pellet.x <= 600.0 && pellet.y > 190.0 && pellet.y < 430.0 {
+                continue;
+            }
+
+            // Clean up so it doesn't look like the pellets are inside the walls
+            if ((pellet.x >= 50.0 && pellet.x <= 110.0) && pellet.y > 158.0 && pellet.y < 170.0) ||
+                (pellet.x >= 150.0 && pellet.x <= 250.0 && pellet.y > 158.0 && pellet.y < 170.0) ||
+                (pellet.x >= 150.0 && pellet.x <= 180.0 && pellet.y > 70.0 && pellet.y < 130.0) ||
+                (pellet.x >= 340.0 && pellet.x <= 440.0 && pellet.y > 158.0 && pellet.y < 170.0)
+            {
                 continue;
             }
 

@@ -5,6 +5,8 @@ use engine::graphics::color::Color;
 use cgmath::{Matrix4, vec3, Rad, Transform, Point3};
 use rand::Rng;
 
+use crate::walls::{walls_cords, get_walls};
+
 #[derive(PartialEq)]
 pub enum Direction
 {
@@ -102,36 +104,24 @@ impl Ghost
 
     fn wall_collision(&mut self, x: f32,y: f32) -> bool
     {
-        /* FIRST ONES ARE THE OUTER WALLS ALLWAYS */
-
-        // HANDLE DOWN WALL COLLISION
-        if y <= 26.0 || (x <= 127.0 && y == 74.0) || (x >= 230.0 && x <= 370.0 && y == 470.0)
-        {
-            self.y += 1.0;
-            return true;
+        let walls = get_walls();
+        for wall in walls {
+            if x >= wall.x1+10.0 && x <= wall.x2+10.0 && y >= wall.y1+10.0 && y <= wall.y2+10.0 {
+                if self.direction == Direction::Up {
+                    self.y -= 5.0;
+                }
+                if self.direction == Direction::Down {
+                    self.y += 5.0;
+                }
+                if self.direction == Direction::Left {
+                    self.x += 5.0;
+                }
+                if self.direction == Direction::Right {
+                    self.x -= 5.0;
+                }
+                return true;
+            }
         }
-
-        // HANDLE UP WALL COLLISION
-        if y >= 574.0 || (x == 27.0 && y == 83.0) ||
-            (x >= 230.0 && x <= 370.0 && y == 440.0)
-        {
-            self.y -= 1.0;
-            return true;
-        }
-
-        // HANDLE LEFT WALL COLLISION
-        if (x <= 26.0 && y != 300.0) || (x <= 126.0 && y == 130.0) {
-            self.x += 1.0;
-            return true;
-        }
-
-        // HANDLE RIGHT WALL COLLISION
-        if (x >= 574.0 && y != 300.0) || (x >= 474.0 && y == 130.0) || (x == 154.0 && y == 75.0)
-        {
-            self.x -= 1.0;
-            return true;
-        }
-
         false
     }
 
@@ -252,37 +242,24 @@ impl Pacman
 
     fn wall_collision(&mut self, x: f32,y: f32) -> bool
     {
-
-        /* FIRST ONES ARE THE OUTER WALLS ALLWAYS */
-
-        // HANDLE DOWN WALL COLLISION
-        if y <= 26.0 || (x <= 127.0 && y == 74.0) || (x >= 230.0 && x <= 370.0 && y == 470.0)
-        {
-            self.y += 1.0;
-            return true;
+        let walls = get_walls();
+        for wall in walls {
+            if x >= wall.x1 && x <= wall.x2 && y >= wall.y1 && y <= wall.y2 {
+                if self.direction == Direction::Up {
+                    self.y -= 2.0;
+                }
+                if self.direction == Direction::Down {
+                    self.y += 2.0;
+                }
+                if self.direction == Direction::Left {
+                    self.x += 2.0;
+                }
+                if self.direction == Direction::Right {
+                    self.x -= 2.0;
+                }
+                return true;
+            }
         }
-
-        // HANDLE UP WALL COLLISION
-        if y >= 574.0 || (x == 27.0 && y == 83.0) ||
-            (x >= 230.0 && x <= 370.0 && y == 440.0)
-        {
-            self.y -= 1.0;
-            return true;
-        }
-
-        // HANDLE LEFT WALL COLLISION
-        if (x <= 26.0 && y != 300.0) || (x <= 126.0 && y == 130.0) {
-            self.x += 1.0;
-            return true;
-        }
-
-        // HANDLE RIGHT WALL COLLISION
-        if (x >= 574.0 && y != 300.0) || (x >= 474.0 && y == 130.0) || (x == 154.0 && y == 75.0)
-        {
-            self.x -= 1.0;
-            return true;
-        }
-
         false
     }
 
