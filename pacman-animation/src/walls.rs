@@ -17,9 +17,7 @@ fn ghost_rectangle()
 
     /* GHOST's RECTANGLE */
     fill_rectangle_inundation(220.0, 260.0, 380.0, 270.0, &wall_color); // Left to right wall (bottom)
-    fill_rectangle_inundation(220.0, 340.0, 270.0, 350.0, &wall_color); // Left to right wall (top)
-    fill_rectangle_inundation(330.0, 340.0, 380.0, 350.0, &wall_color); // Left to right wall (top)
-    fill_rectangle_inundation(270.0, 345.0, 330.0, 347.0, &Color::new(1.0, 1.0, 0.0)); // Left to right wall (top)
+    fill_rectangle_inundation(220.0, 345.0, 380.0, 347.0, &Color::new(1.0, 1.0, 0.0)); // Left to right wall (top)
     fill_rectangle_inundation(220.0, 260.0, 230.0, 350.0, &wall_color); // Left to right wall (left)
     fill_rectangle_inundation(370.0, 260.0, 380.0, 350.0, &wall_color); // Left to right wall (right)
 }
