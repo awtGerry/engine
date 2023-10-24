@@ -5,7 +5,7 @@ use engine::graphics::color::Color;
 use cgmath::{Matrix4, vec3, Rad, Transform, Point3};
 use rand::Rng;
 
-use crate::walls::{walls_cords, get_walls};
+use crate::walls::get_walls;
 
 #[derive(PartialEq)]
 pub enum Direction
@@ -106,7 +106,7 @@ impl Ghost
     {
         let walls = get_walls();
         for wall in walls {
-            if x >= wall.x1+10.0 && x <= wall.x2+10.0 && y >= wall.y1+10.0 && y <= wall.y2+10.0 {
+            if x >= wall.x1 && x <= wall.x2 && y >= wall.y1 && y <= wall.y2 {
                 if self.direction == Direction::Up {
                     self.y -= 5.0;
                 }
@@ -200,6 +200,16 @@ impl Pacman
             if random_direction != self.direction {
                 break random_direction;
             }
+
+            if self.x <= 1.0 && (self.y >= 290.0 && self.y<= 310.0)
+            {
+                self.x = 599.0;
+            }
+
+            if self.x >= 599.0 && (self.y >= 290.0 && self.y<= 310.0)
+            {
+                self.x = 1.0;
+            }
         };
 
         self.direction = new_direction;
@@ -265,21 +275,17 @@ impl Pacman
 
     pub fn handle_death(&mut self, increment: f32)
     {
-        let rotation_matrix: Matrix4<f32> = cgmath::Matrix4::from_angle_z(Rad(increment));
-        let translation_matrix: Matrix4<f32> = cgmath::Matrix4::from_translation(vec3(self.x, self.y, 0.0));
-        let transformation_matrix = translation_matrix * rotation_matrix * translation_matrix.inverse_transform().unwrap();
+        let mut translation_matrix: Matrix4<f32> = Matrix4::from_translation(vec3(0.0, 0.0, 0.0));
+        translation_matrix = translation_matrix * Matrix4::from_scale(increment);
 
-        let v1 = transformation_matrix.transform_point(Point3::new(self.x-7.0, self.y-7.0, 0.0));
-        let v2 = transformation_matrix.transform_point(Point3::new(self.x+7.0, self.y-7.0, 0.0));
-        let v3 = transformation_matrix.transform_point(Point3::new(self.x+7.0, self.y+7.0, 0.0));
-        let v4 = transformation_matrix.transform_point(Point3::new(self.x-7.0, self.y+7.0, 0.0));
-        self.rotate_sun(&[v1, v2, v3, v4], &Color::new(1.0, 1.0, 0.0));
+        let v1 = translation_matrix.transform_point(Point3::new(self.x-5.0, self.y-5.0, 0.0));
+        let v2 = translation_matrix.transform_point(Point3::new(self.x+5.0, self.y+5.0, 0.0));
+        self.resize_pacman(&[v1, v2], &Color::new(1.0, 1.0, 0.0));
     }
 
-    fn rotate_sun(&mut self, vertices: &[Point3<f32>], color: &Color)
+    fn resize_pacman(&mut self, vertices: &[Point3<f32>], color: &Color)
     {
-        for i in 0..vertices.len() {
-            draw_sun(vertices[i].x, vertices[i].y, 100, 2.0, color);
-        }
+        let radious = (vertices[1].x - vertices[0].x) / 2.0;
+        fill_circle_inundation(self.x, self.y, radious, color);
     }
 }

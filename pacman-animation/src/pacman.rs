@@ -24,6 +24,8 @@ fn main()
     let mut increment: f32 = 0.0;
     // Timer (seconds) to control the ghost's movement
     let mut timer: f32 = 0.0;
+    let mut pacman_timer: f32 = 0.0;
+    let mut pacman_death_increment: f32 = 0.0;
 
     // Chose a random start direction for pacman (just left or right)
     let mut rng = rand::thread_rng();
@@ -80,8 +82,13 @@ fn main()
             }
 
             if hit_ghost {
-                pacman.handle_death(timer);
-                // walls::get_walls();
+                if pacman_timer <= 2.0 {
+                    pacman_death_increment += 1.0;
+                    pacman_timer += 0.1;
+                } else {
+                    pacman_death_increment -= 1.0;
+                }
+                pacman.handle_death(pacman_death_increment);
                 walls::draw_walls();
             } else {
                 process_events(&mut window, &mut pacman);
