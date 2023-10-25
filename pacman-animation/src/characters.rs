@@ -170,8 +170,6 @@ impl Pacman
             Direction::Right => (self.x, self.y) = translate(self.x, self.y, 1.0, 0.0),
         }
 
-        println!("x: {}, y: {}", self.x, self.y);
-
         if self.wall_collision(self.x, self.y)
         {
             self.change_direction();

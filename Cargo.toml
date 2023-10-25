@@ -55,6 +55,10 @@ path = "examples/mesh.rs"
 name = "diamond"
 path = "examples/diamond.rs"
 
+[[example]]
+name = "k-means"
+path = "examples/k-means.rs"
+
 [dependencies]
 cgmath = "0.18.0"
 chrono = "0.4.31"
