@@ -8,6 +8,9 @@ use engine::graphics::color::Color;
 use engine::graphics::window::Window;
 use engine::algorithms::fill::fill_circle_inundation;
 
+const WIDTH: f32 = 1366.0;
+const HEIGHT: f32 = 768.0;
+
 #[derive(Debug, Clone)]
 struct Point {
     x: f32,
@@ -27,19 +30,19 @@ fn kmeans() -> Vec<(f32, f32)>
     let mut points: Vec<Point> = Vec::new();
     let mut clusters: Vec<Cluster> = Vec::new();
 
-    // Create 100 random points
-    for _ in 0..100
+    // Create 2000 random points
+    for _ in 0..2000
     {
-        let x = rand::random::<f32>() * 800.0;
-        let y = rand::random::<f32>() * 600.0;
+        let x = rand::random::<f32>() * WIDTH;
+        let y = rand::random::<f32>() * HEIGHT;
         points.push(Point { x, y });
     }
 
-    // Create 4 random clusters
-    for _ in 0..4
+    // Create 12 random clusters
+    for _ in 0..12
     {
-        let x = rand::random::<f32>() * 800.0;
-        let y = rand::random::<f32>() * 600.0;
+        let x = rand::random::<f32>() * WIDTH;
+        let y = rand::random::<f32>() * HEIGHT;
         clusters.push(Cluster {
             points: Vec::new(),
             centroid: Point { x, y },
@@ -100,7 +103,7 @@ fn kmeans() -> Vec<(f32, f32)>
 
 fn main()
 {
-    let mut window = Window::new(800.0, 600.0, "Draw a diamond");
+    let mut window = Window::new(WIDTH, HEIGHT, "K-means");
     window.init();
 
     while !window.should_close()
@@ -108,13 +111,12 @@ fn main()
         unsafe
         {
             gl::ClearColor(0.0, 0.0, 0.0, 1.0);
-            gl::Clear(gl::COLOR_BUFFER_BIT);
+            // gl::Clear(gl::COLOR_BUFFER_BIT);
             let v = kmeans();
             for (x, y) in &v
             {
                 fill_circle_inundation(*x, *y, 3.0, &Color::new(0.0, 1.0, 0.0));
             }
-            // fill_circle_inundation(x, y, 3.0, &Color::new(1.0, 1.0, 0.0));
         }
         window.update();
     }
