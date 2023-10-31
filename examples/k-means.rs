@@ -31,7 +31,7 @@ fn kmeans() -> Vec<(f32, f32)>
     let mut clusters: Vec<Cluster> = Vec::new();
 
     // Create 2000 random points
-    for _ in 0..2000
+    for _ in 0..1000
     {
         let x = rand::random::<f32>() * WIDTH;
         let y = rand::random::<f32>() * HEIGHT;
@@ -39,7 +39,7 @@ fn kmeans() -> Vec<(f32, f32)>
     }
 
     // Create 12 random clusters
-    for _ in 0..12
+    for _ in 0..6
     {
         let x = rand::random::<f32>() * WIDTH;
         let y = rand::random::<f32>() * HEIGHT;
