@@ -1,4 +1,3 @@
-workspace = { members = ["pool3"] }
 [package]
 name = "engine"
 version = "0.1.0"
@@ -15,6 +14,10 @@ path = "src/lib.rs"
 [[example]]
 name = "pacman"
 path = "pacman-animation/src/pacman.rs"
+
+[[example]]
+name = "pool"
+path = "pool/src/main.rs"
 
 [[example]]
 name = "test"
