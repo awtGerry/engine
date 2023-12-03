@@ -6,8 +6,6 @@ fn main()
     let mut window = Window::new(800.0, 600.0, "Draw a diamond");
     window.init();
 
-    let number: f32 = 0;
-
     while !window.should_close()
     {
         unsafe

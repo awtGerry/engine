@@ -24,6 +24,10 @@ name = "test"
 path = "examples/test.rs"
 
 [[example]]
+name = "cube"
+path = "examples/cube.rs"
+
+[[example]]
 name = "translation"
 path = "examples/translation.rs"
 
